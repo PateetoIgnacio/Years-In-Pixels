@@ -21,18 +21,13 @@ public class Ventana extends JFrame{
     
     private void initComponents(){
 
-        this.dimension = new Dimension(this.MEDIDA_EN_X, this.MEDIDA_EN_Y);
-        JPanel panelGeneral = new JPanel();
-        panelGeneral.setPreferredSize(this.dimension);
-        panelGeneral.setBackground(Color.CYAN);
-
         this.panelActualizarEstado = new PanelActualizarEstado(this);
 
         this.panelPixeles = new PanelPixeles();
         this.panelPixeles.setBackground(Color.BLACK);
-        panelGeneral.add(this.panelPixeles, BorderLayout.CENTER);
-
-        this.add(panelGeneral);
+        
+        this.panelActualizarEstado = new PanelActualizarEstado(this);
+        this.add(this.panelActualizarEstado);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();

@@ -20,29 +20,53 @@ public class PanelActualizarEstado extends JPanel{
         initComponents(ventana);
     }
     private void initComponents(Ventana ventana){
+        
+        this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        
+        JButton boton = new JButton("1");
+        c.weightx = 0.5;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        this.add(boton, c);
 
-        JPanel panelGeneral = new JPanel();
-        panelGeneral.setOpaque(true);
-        Dimension dimGeneral = new Dimension(700, 700);
-        panelGeneral.setPreferredSize(dimGeneral);
-
-        JPanel panelSuperior = new JPanel();
-        panelSuperior.setPreferredSize(new Dimension((int) dimGeneral.getWidth(), (int) dimGeneral.getHeight()/10));
-        panelSuperior.setBackground(Color.CYAN);
-        initTitulo();
-        panelSuperior.add(this.labelTitulo, BorderLayout.CENTER);
-        panelGeneral.add(panelSuperior);
-
-        JPanel panelLateralIzquierdo = new JPanel();
-        panelLateralIzquierdo.setPreferredSize(new Dimension(50, 400));
-        panelLateralIzquierdo.setBackground(Color.CYAN);
-        panelGeneral.add(panelLateralIzquierdo, BorderLayout.EAST);
-
-        JPanel panelCentral = new JPanel();
-        Dimension dimCentro = new Dimension(500, 400);
-        panelCentral.setPreferredSize(dimCentro);
-        panelCentral.setBackground(Color.CYAN);
-
+        boton = new JButton("2");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 1;
+        c.gridy = 0;
+        this.add(boton, c);
+        
+        boton = new JButton("3");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 2;
+        c.gridy = 0;
+        this.add(boton, c);
+        
+        boton = new JButton("botoncito 4");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipady = 40;
+        c.weightx = 0.0;
+        c.gridwidth = 2;
+        c.gridx = 1;
+        c.gridy = 1;
+        this.add(boton, c);
+        
+        boton = new JButton("este es el de la esquina");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipady = 0;
+        c.weighty = 1.0;
+        c.anchor = GridBagConstraints.PAGE_END;
+        c.insets = new Insets(10, 0, 0, 0);
+        c.gridx = 0;
+        c.gridwidth = 2;
+        c.gridy = 3;
+        this.add(boton);
         /*
         for (int opcion = 0; opcion < this.filas; opcion++){
             for (int elemento = 0; elemento < this.columnas; elemento++){
@@ -59,24 +83,6 @@ public class PanelActualizarEstado extends JPanel{
             }
         }
         */
-        panelGeneral.add(panelCentral, BorderLayout.CENTER);
-
-        JPanel panelLateralDerecho = new JPanel();
-        panelLateralDerecho.setPreferredSize(new Dimension(50, 400));
-        panelLateralDerecho.setBackground(Color.CYAN);
-        panelGeneral.add(panelLateralDerecho, BorderLayout.WEST);
-
-        JPanel panelInferior = new JPanel();
-        panelInferior.setPreferredSize(new Dimension(700, 100));
-        panelInferior.setBackground(Color.CYAN);
-        initBottonsInferiores();
-        panelInferior.setLayout(new FlowLayout());
-        panelInferior.add(this.btnOpcionAunNo);
-        panelInferior.add(this.btnOpcionGuardar);
-        panelSuperior.add(this.labelTitulo, BorderLayout.SOUTH);
-        panelGeneral.add(panelInferior);
-
-        this.add(panelGeneral);
     }
 
     private void initTitulo() {

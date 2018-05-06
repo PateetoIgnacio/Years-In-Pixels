@@ -50,9 +50,7 @@ public class AnhoEnPixeles {
 
     public EstadoDeAnimo[] getEstados() { return this.estados; }
 
-    public Controlador getControlador() {
-        return this.controlador;
-    }
+    public Controlador getControlador() { return this.controlador; }
 
 
 }

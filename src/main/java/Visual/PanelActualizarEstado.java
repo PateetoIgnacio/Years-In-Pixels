@@ -29,6 +29,7 @@ public class PanelActualizarEstado extends JPanel {
 
         this.labelTitulo = initTitulo();
         c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.PAGE_START;
         c.ipady = 100;
         c.weightx = 0.0;
         c.gridwidth = 1;

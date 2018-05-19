@@ -13,10 +13,12 @@ public class Controlador {
         this.fechaActual = dia.getTime();
     }
 
-    public Date getFechaActual() { return this.fechaActual; }
+    public Date getFechaActual() {
+        return this.fechaActual; 
+    }
     
     public boolean validacionNegativa(int dia, int mes){
-        return !(getFechaActual().after(fechaPasada(dia, mes)));
+        return (getFechaActual().after(fechaPasada(dia, mes)));
     }
     
     private Date fechaPasada(int dia, int mes){
@@ -27,6 +29,7 @@ public class Controlador {
         auxiliar.set(Calendar.HOUR_OF_DAY, 0);
         auxiliar.set(Calendar.MINUTE, 0);
         auxiliar.set(Calendar.SECOND, 0);
+        auxiliar.set(Calendar.MILLISECOND, 0);
         return auxiliar.getTime();
     }
 }

@@ -25,20 +25,66 @@ public class PanelActualizarEstado extends JPanel{
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         
-        JButton boton = new JButton("1");
-        c.weightx = 0.5;
+        this.labelTitulo = initTitulo();
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
+        c.ipady = 80;
+        c.weightx = 0.0;
+        c.gridwidth = 1;
+        c.gridx = 1;
         c.gridy = 0;
+        this.add(this.labelTitulo, c);
+        
+        JLabel label = new JLabel("");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = 50;
+        c.weightx = 1.0;
+        c.gridx = 0;
+        c.gridy = 1;
+        this.add(label, c);
+        
+        JButton boton = new JButton("1");
+        c.fill = GridBagConstraints.HORIZONTAL;        
+        c.weightx = 1.0;
+        c.gridx = 1;
+        c.gridy = 1;
         this.add(boton, c);
 
         boton = new JButton("2");
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
-        c.gridx = 1;
-        c.gridy = 0;
+        c.weightx = 1.0;
+        c.gridx = 2;
+        c.gridy = 1;
         this.add(boton, c);
         
+        label = new JLabel("");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = 50;
+        c.weightx = 1.0;
+        c.gridx = 3;
+        c.gridy = 1;
+        this.add(label, c);
+  /*      
+        initBottonsInferiores();
+	c.fill = GridBagConstraints.HORIZONTAL;
+	c.ipady = 0;       //reset to default
+	c.weighty = 1.0;   //request any extra vertical space
+	c.anchor = GridBagConstraints.PAGE_END; //bottom of space
+	c.insets = new Insets(10,0,0,0);  //top padding
+	c.gridx = 1;       //aligned with button 2
+	c.gridwidth = 2;   //2 columns wide
+	c.gridy = 2;       //third row
+	this.add(this.btnOpcionAunNo, c);
+        
+        c.fill = GridBagConstraints.HORIZONTAL;
+	c.ipady = 0;       //reset to default
+	c.weighty = 3.0;   //request any extra vertical space
+	c.anchor = GridBagConstraints.PAGE_END; //bottom of space
+	c.insets = new Insets(10,0,0,0);  //top padding
+	c.gridx = 2;       //aligned with button 2
+	c.gridwidth = 2;   //2 columns wide
+	c.gridy = 2;       //third row
+	this.add(this.btnOpcionGuardar, c);
+/*        
         boton = new JButton("3");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
@@ -64,7 +110,7 @@ public class PanelActualizarEstado extends JPanel{
         c.gridx = 0;
         c.gridwidth = 2;
         c.gridy = 3;
-        this.add(boton);
+        this.add(boton);*/
         /*
         for (int opcion = 0; opcion < this.filas; opcion++){
             for (int elemento = 0; elemento < this.columnas; elemento++){
@@ -83,9 +129,10 @@ public class PanelActualizarEstado extends JPanel{
         */
     }
 
-    private void initTitulo() {
+    private JLabel initTitulo() {
         String titulo = "¿Cómo estuviste hoy?";
-        this.labelTitulo = new JLabel(titulo);
+        JLabel label = new JLabel(titulo);
+        return label;
     }
 
     private JButton crearBoton(EstadoDeAnimo [] estados, int indice){
@@ -96,10 +143,10 @@ public class PanelActualizarEstado extends JPanel{
 
     }
     private void initBottonsInferiores(){
-        String opcion1 = "Aún no";
-        String opcion2 = "Guardar mi día";
-        this.btnOpcionAunNo = new JButton(opcion1);
-        this.btnOpcionGuardar = new JButton(opcion2);
+        String texto1 = "Aún no";
+        String texto2 = "Guardar mi día";
+        this.btnOpcionAunNo = new JButton(texto1);
+        this.btnOpcionGuardar = new JButton(texto2);
 
     }
 

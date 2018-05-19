@@ -7,10 +7,12 @@ public class AnhoEnPixeles {
     private final int MESES_DEL_ANHO = 12;
     private final int DIAS_DEL_MES = 31;
     private final int CANTIDAD_DE_ESTADOS = 5;
-    private EstadoDeAnimo [] estados = new EstadoDeAnimo [this.CANTIDAD_DE_ESTADOS + 1];;
-    private Controlador controlador = new Controlador();
+    private EstadoDeAnimo [] estados;
+    private Controlador controlador;
 
     public AnhoEnPixeles(){
+        this.estados = new EstadoDeAnimo[this.CANTIDAD_DE_ESTADOS + 1]; //Se considera el caso SIN_ESPECIFICAR
+        this.controlador = new Controlador();
         inicializarArreglo(this.estados);
     }
 
@@ -46,7 +48,7 @@ public class AnhoEnPixeles {
         return this.DIAS_DEL_MES;
     }
 
-    public int getCANTIDAD_DE_ESTADOS(){ return this.CANTIDAD_DE_ESTADOS; }
+    public int getCANTIDAD_DE_ESTADOS() { return this.CANTIDAD_DE_ESTADOS; }
 
     public EstadoDeAnimo[] getEstados() { return this.estados; }
 

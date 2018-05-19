@@ -1,10 +1,6 @@
 
 package Logica;
 
-/**
- *
- * @author Patricio
- */
 public enum TipoDeEstado {
     ESTADO_1,
     ESTADO_2,

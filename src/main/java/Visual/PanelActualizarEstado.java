@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 
 public class PanelActualizarEstado extends JPanel{
     private final int TAMANHO_BOTON = 50;
-    private final int filas = 5;
-    private final int columnas = 2;
     private JButton [] botonesDeColor;
     private JButton btnOpcionAunNo;
     private JButton btnOpcionGuardar;
@@ -104,7 +102,6 @@ public class PanelActualizarEstado extends JPanel{
         this.btnOpcionGuardar = new JButton(opcion2);
 
     }
-
 
     private void setListener(JButton boton, int i){
         boton.addActionListener(

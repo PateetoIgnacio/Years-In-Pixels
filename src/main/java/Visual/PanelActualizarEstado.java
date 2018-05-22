@@ -96,6 +96,7 @@ public class PanelActualizarEstado extends JPanel {
     private JLabel initTitulo() {
         String titulo = "¿Cómo estuviste hoy?";
         JLabel label = new JLabel(titulo);
+        label.setFont(new Font("Noteworthy", 0, 30));
         return label;
     }
 
@@ -142,6 +143,7 @@ public class PanelActualizarEstado extends JPanel {
                 break;
         }
         label.setText(texto);
+        label.setFont(new Font("Noteworthy", 0, 17));
         return label;
     }
 

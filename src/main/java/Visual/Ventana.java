@@ -7,9 +7,8 @@ import java.awt.*;
 
 public class Ventana extends JFrame {
 
-    private final int MEDIDA_EN_X = 750; //Width
-    private final int MEDIDA_EN_Y = 750; //Height
-    private Dimension dimension;
+    private final int MEDIDA_EN_X = 600; //Width
+    private final int MEDIDA_EN_Y = 700; //Height
 
     private AnhoEnPixeles anhoEnPixeles = new AnhoEnPixeles();
     private PanelActualizarEstado panelActualizarEstado;
@@ -41,7 +40,7 @@ public class Ventana extends JFrame {
         pestañas.addTab("Gráfico", this.panelGrafico);
 
         this.panelConfiguracion = new PanelConfiguracion(this);
-        this.panelConfiguracion.setBackground(Color.green);
+        this.panelConfiguracion.setBackground(Color.LIGHT_GRAY);
         pestañas.addTab("Configuracion", this.panelConfiguracion);
         
         getContentPane().add(pestañas);
@@ -50,15 +49,9 @@ public class Ventana extends JFrame {
         this.pack();
         this.setTitle("Año en Pixeles");
         this.setLocationRelativeTo(null);
+        this.setSize(new Dimension(this.MEDIDA_EN_X, this.MEDIDA_EN_Y));
+        this.setResizable(false);
         this.setVisible(true);
-    }
-
-    public int getMEDIDA_EN_X() {
-        return this.MEDIDA_EN_X;
-    }
-
-    public int getMEDIDA_EN_Y() {
-        return this.MEDIDA_EN_Y;
     }
 
     public AnhoEnPixeles getAnhoEnPixeles() {

@@ -1,7 +1,6 @@
 package Visual;
 
 import java.awt.ComponentOrientation;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -38,7 +37,7 @@ public class PanelConfiguracion extends JPanel {
                         initButton(columna, c);
                         break;
                     default:
-                        label = crearLabelOpciones(columna);
+                        label = crearLabelOpciones(columna-1);
                         c.anchor = GridBagConstraints.LINE_START;
                         c.gridx = 1;
                         c.gridy = columna;
@@ -62,7 +61,7 @@ public class PanelConfiguracion extends JPanel {
     private JLabel crearJLabelTitulo() {
         JLabel jLabel = new JLabel();
         jLabel.setText("Personalizar");
-        jLabel.setFont(new java.awt.Font("Arial", 0, 40));
+        jLabel.setFont(new Font("Noteworthy", 0, 30));
         return jLabel;
     }
 
@@ -74,7 +73,7 @@ public class PanelConfiguracion extends JPanel {
         c.gridwidth = 2;
         c.gridheight = 1;
         c.ipadx = 0;
-        c.ipady = 150;
+        c.ipady = 100;
         c.weightx = 0.0;
         c.weighty = 0.0;
         return c;
@@ -122,8 +121,7 @@ public class PanelConfiguracion extends JPanel {
                 break;
         }
         jLabel.setText(texto);
-        jLabel.setFont(new Font("Arial", 0, 15));
-
+        jLabel.setFont(new Font("Noteworthy", 0, 17));
         return jLabel;
     }
 

@@ -100,8 +100,9 @@ public class PanelActualizarEstado extends JPanel {
     }
 
     private JButton crearBoton(Ventana v, int indice) {
+        Color[] arregloColores = {Color.yellow, Color.green, Color.blue, Color.orange, Color.red};
         JButton boton = new JButton();
-        boton.setBackground(v.getAnhoEnPixeles().getEstado(indice).getColor());
+        boton.setBackground(arregloColores[indice]);
         boton.setPreferredSize(new Dimension(this.TAMANHO_BOTON, this.TAMANHO_BOTON));
         return boton;
     }

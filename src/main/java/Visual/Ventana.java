@@ -31,7 +31,7 @@ public class Ventana extends JFrame {
         pestañas.addTab("Día", this.panelActualizarEstado);
         
         //Creamos el panel que representa el Calendario y se adiona al conjunto
-        this.panelPixeles = new PanelPixeles();
+        this.panelPixeles = new PanelPixeles(this);
         this.panelPixeles.setBackground(Color.WHITE);
         pestañas.addTab("Calendario", this.panelPixeles);
         

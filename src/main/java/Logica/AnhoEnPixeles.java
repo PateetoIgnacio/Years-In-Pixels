@@ -1,51 +1,51 @@
 
 package Logica;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class AnhoEnPixeles {
     private final int MESES_DEL_ANHO = 12;
     private final int DIAS_DEL_MES = 31;
     private final int CANTIDAD_DE_ESTADOS = 5;
-    private EstadoDeAnimo [] estados;
-    private Controlador controlador;
+    private EstadoDeAnimo [] opcionesDeEstados;
+    private ControladorDeFecha controlador;
 
     public AnhoEnPixeles(){
-        this.estados = new EstadoDeAnimo[this.CANTIDAD_DE_ESTADOS];
-        this.controlador = new Controlador();
-        inicializarArreglo(this.estados);
+        this.opcionesDeEstados = new EstadoDeAnimo[this.CANTIDAD_DE_ESTADOS];
+        this.controlador = new ControladorDeFecha();
+        inicializarArreglo();
     }
 
-    private void inicializarArreglo(EstadoDeAnimo[] estados){
+    private void inicializarArreglo(){
         EstadoDeAnimo estado = new EstadoDeAnimo();
-        for (int indicador = 0; indicador < estados.length; indicador++){
+        for (int indicador = 0; indicador < opcionesDeEstados.length; indicador++){
             switch (indicador){
                 case 0:
-                    estado.setEstado(TipoDeEstado.ESTADO_1); 
-                    estado.setColorRepresentacion(Color.yellow);
+                    estado.setTipo(TipoDeEstado.ESTADO_1); 
+                    estado.setColor(Color.yellow);
                     break;
                 case 1:
-                    estado.setEstado(TipoDeEstado.ESTADO_2); 
-                    estado.setColorRepresentacion(Color.green);
+                    estado.setTipo(TipoDeEstado.ESTADO_2); 
+                    estado.setColor(Color.green);
                     break;
                 case 2:
-                    estado.setEstado(TipoDeEstado.ESTADO_3); 
-                    estado.setColorRepresentacion(Color.blue);
+                    estado.setTipo(TipoDeEstado.ESTADO_3); 
+                    estado.setColor(Color.blue);
                     break;
                 case 3:
-                    estado.setEstado(TipoDeEstado.ESTADO_4); 
-                    estado.setColorRepresentacion(Color.orange);
+                    estado.setTipo(TipoDeEstado.ESTADO_4); 
+                    estado.setColor(Color.orange);
                     break;
                 case 4:
-                    estado.setEstado(TipoDeEstado.ESTADO_5);
-                    estado.setColorRepresentacion(Color.red);
+                    estado.setTipo(TipoDeEstado.ESTADO_5);
+                    estado.setColor(Color.red);
                     break;
                 default:
-                    estado.setEstado(TipoDeEstado.SIN_ESPECIFICAR);
-                    estado.setColorRepresentacion(Color.white);
+                    estado.setTipo(TipoDeEstado.SIN_ESPECIFICAR);
+                    estado.setColor(Color.white);
                     break;
             }
-            this.estados[indicador] = estado;
+            this.opcionesDeEstados[indicador] = estado;
         }
     }
 
@@ -61,17 +61,15 @@ public class AnhoEnPixeles {
         return this.CANTIDAD_DE_ESTADOS; 
     }
 
-    public EstadoDeAnimo[] getEstados() { 
-        return this.estados; 
+    public EstadoDeAnimo[] getOpcionesDeEstados() { 
+        return this.opcionesDeEstados; 
     }
     
     public EstadoDeAnimo getEstado(int indice){
-        return this.estados[indice];
+        return this.opcionesDeEstados[indice];
     }
 
-    public Controlador getControlador() { 
+    public ControladorDeFecha getControlador() { 
         return this.controlador; 
     }
-
-
 }

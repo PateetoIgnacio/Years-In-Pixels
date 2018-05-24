@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class PanelConfiguracion extends JPanel {
-
     public JButton btnAjustarColores;
     public JButton btnAjustarNotificacion;
     public JButton btnEditarFondo;

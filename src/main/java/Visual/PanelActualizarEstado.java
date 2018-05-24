@@ -10,7 +10,6 @@ public class PanelActualizarEstado extends JPanel {
     private JButton[] botonesDeColor;
     private JButton btnOpcionAunNo;
     private JButton btnOpcionGuardar;
-    private JLabel labelTitulo;
 
     public PanelActualizarEstado(Ventana ventana) {
         initComponents(ventana);
@@ -22,7 +21,7 @@ public class PanelActualizarEstado extends JPanel {
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-        this.labelTitulo = initTitulo();
+        JLabel titulo = initJLabelTitulo();
 
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.CENTER;
@@ -33,7 +32,7 @@ public class PanelActualizarEstado extends JPanel {
         c.ipadx = 0;
         c.ipady = 150;
         c.weightx = 0.0;
-        this.add(this.labelTitulo, c);
+        this.add(titulo, c);
 
         inicializarArregloDeBotones(ventana);
 
@@ -58,15 +57,15 @@ public class PanelActualizarEstado extends JPanel {
                         break;
                     case 1:
                         c.anchor = GridBagConstraints.LINE_START;
-                        JLabel label = crearLabel(opcion);
+                        JLabel label = crearLabelOpcion(opcion);
                         this.add(label, c);
                         break;
                 }
             }
         }
-        
+
         initBottonsInferiores();
-           
+
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.LINE_END;
         c.insets = new Insets(10, 0, 0, 0);
@@ -79,7 +78,7 @@ public class PanelActualizarEstado extends JPanel {
         c.weightx = 1.0;
         c.weighty = 1.0;
         this.add(this.btnOpcionAunNo, c);
-        
+
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 1;
         c.gridy = this.botonesDeColor.length + 1;
@@ -87,42 +86,27 @@ public class PanelActualizarEstado extends JPanel {
 
     }
 
-    //Se inicializa termina de crear el arreglo de botones a mostrar
-    private void inicializarArregloDeBotones(Ventana v) {
-        int cantidadDeEstados = v.getAnhoEnPixeles().getCANTIDAD_DE_ESTADOS(); //no se considera el SIN_ESPECIFICAR
-        this.botonesDeColor = new JButton[cantidadDeEstados];
-    }
-
-    private JLabel initTitulo() {
+    private JLabel initJLabelTitulo() {
         String titulo = "¿Cómo estuviste hoy?";
         JLabel label = new JLabel(titulo);
         label.setFont(new Font("Noteworthy", 0, 30));
         return label;
     }
 
+    //Se asigna tamaño al arreglo de botones a mostrar
+    private void inicializarArregloDeBotones(Ventana v) {
+        int cantidadDeEstados = v.getAnhoEnPixeles().getCANTIDAD_DE_ESTADOS(); //no se considera el SIN_ESPECIFICAR
+        this.botonesDeColor = new JButton[cantidadDeEstados];
+    }
+
     private JButton crearBoton(Ventana v, int indice) {
         JButton boton = new JButton();
-        boton.setBackground(v.getAnhoEnPixeles().getEstado(indice).getColorRepresentacion());
+        boton.setBackground(v.getAnhoEnPixeles().getEstado(indice).getColor());
         boton.setPreferredSize(new Dimension(this.TAMANHO_BOTON, this.TAMANHO_BOTON));
         return boton;
     }
 
-    private void initBottonsInferiores() {
-        String texto1 = "Aún no";
-        String texto2 = "Guardar mi día";
-        this.btnOpcionAunNo = new JButton(texto1);
-        this.btnOpcionGuardar = new JButton(texto2);
-    }
-
-    private void setListener(JButton boton, int i) {
-        boton.addActionListener(
-                (ActionEvent e) -> {
-                    System.out.println("Presionaste el boton " + (i + 1));
-                }
-        );
-    }
-
-    private JLabel crearLabel(int opcion) {
+    private JLabel crearLabelOpcion(int opcion) {
         JLabel label = new JLabel();
         String texto;
         switch (opcion) {
@@ -145,6 +129,21 @@ public class PanelActualizarEstado extends JPanel {
         label.setText(texto);
         label.setFont(new Font("Noteworthy", 0, 17));
         return label;
+    }
+
+    private void setListener(JButton boton, int i) {
+        boton.addActionListener(
+                (ActionEvent e) -> {
+                    System.out.println("Presionaste el boton " + (i + 1));
+                }
+        );
+    }
+
+    private void initBottonsInferiores() {
+        String texto1 = "Aún no";
+        String texto2 = "Guardar mi día";
+        this.btnOpcionAunNo = new JButton(texto1);
+        this.btnOpcionGuardar = new JButton(texto2);
     }
 
 }

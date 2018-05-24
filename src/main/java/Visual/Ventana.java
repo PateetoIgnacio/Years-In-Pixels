@@ -16,8 +16,6 @@ public class Ventana extends JFrame {
     private PanelGrafico panelGrafico;
     private PanelConfiguracion panelConfiguracion;
 
-    private Probando probando = new Probando(this);
-
     public Ventana() {
         initComponents();
     }
@@ -27,22 +25,27 @@ public class Ventana extends JFrame {
         //Creamos el conjunto de pestañas
         JTabbedPane pestañas = new JTabbedPane();
 
-        //Creamos el panel ActualizarEstado
+        //Creamos el panel ActualizarEstado y se adiciona al conjunto
         this.panelActualizarEstado = new PanelActualizarEstado(this);
+        this.panelActualizarEstado.setBackground(Color.WHITE);
         pestañas.addTab("Día", this.panelActualizarEstado);
-
+        
+        //Creamos el panel que representa el Calendario y se adiona al conjunto
         this.panelPixeles = new PanelPixeles();
-        this.panelPixeles.setBackground(Color.BLACK);
+        this.panelPixeles.setBackground(Color.WHITE);
         pestañas.addTab("Calendario", this.panelPixeles);
         
+        //Creamos el panel de Grafico y se adiciona al conjunto
         this.panelGrafico = new PanelGrafico();
-        this.panelGrafico.setBackground(Color.red);
+        this.panelGrafico.setBackground(Color.WHITE);
         pestañas.addTab("Gráfico", this.panelGrafico);
-
-        this.panelConfiguracion = new PanelConfiguracion(this);
-        this.panelConfiguracion.setBackground(Color.LIGHT_GRAY);
-        pestañas.addTab("Configuracion", this.panelConfiguracion);
         
+        //Creamos el panel de Configuraciones y se adiciona al conjunto
+        this.panelConfiguracion = new PanelConfiguracion(this);
+        this.panelConfiguracion.setBackground(Color.WHITE);
+        pestañas.addTab("Configuración", this.panelConfiguracion);
+        
+        //Se agrega el conjunto de pestañas al frame
         getContentPane().add(pestañas);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

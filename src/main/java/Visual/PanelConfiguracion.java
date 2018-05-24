@@ -37,7 +37,7 @@ public class PanelConfiguracion extends JPanel {
                         initButton(columna, c);
                         break;
                     default:
-                        label = crearLabelOpciones(columna-1);
+                        label = crearLabelOpciones(columna - 1);
                         c.anchor = GridBagConstraints.LINE_START;
                         c.gridx = 1;
                         c.gridy = columna;
@@ -91,19 +91,21 @@ public class PanelConfiguracion extends JPanel {
         c.ipady = 0;
         c.weightx = 1.0;
         c.weighty = 1.0;
-        
+        JButton boton = new JButton();
         switch (opcion) {
             case 1:
-                this.add(new JButton("Colores"), c);
+                boton.setText("Colores");
                 break;
             case 2:
-                this.add(new JButton("Notificación"), c);
+                boton.setText("Notificaciones");
                 break;
             default:
-                this.add(new JButton("Fondo"), c);
+                boton.setText("Fondo");
                 break;
 
         }
+        setListener(boton);
+        this.add(boton);
     }
 
     private JLabel crearLabelOpciones(int opcion) {
@@ -125,5 +127,12 @@ public class PanelConfiguracion extends JPanel {
         return jLabel;
     }
 
+    private void setListener(JButton boton) {
+        boton.addActionListener(
+                (ActionEvent e) -> {
+                    System.out.println("presionaste un botón");
+                }
+        );
+    }
 
 }

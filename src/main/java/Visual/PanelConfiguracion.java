@@ -71,7 +71,6 @@ public class PanelConfiguracion extends JPanel {
     }
 
     private void initButton(int opcion, GridBagConstraints c) {
-
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
@@ -93,10 +92,9 @@ public class PanelConfiguracion extends JPanel {
             default:
                 boton.setText("Fondo");
                 break;
-
         }
         setListener(boton);
-        this.add(boton);
+        this.add(boton, c);
     }
 
     private JLabel crearLabelOpciones(int opcion) {

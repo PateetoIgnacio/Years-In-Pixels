@@ -1,49 +1,66 @@
-
 package Visual;
 
-import Logica.AnhoEnPixeles;
-
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class PanelPixeles extends JPanel{
-    private final int TAMANHO_BOTONES = 23;
-    private AnhoEnPixeles ahnoPixeles = new AnhoEnPixeles();
+public class PanelPixeles extends JPanel {
 
-    public PanelPixeles() { inicializarBotones(); }
-    
-    private void inicializarBotones() {
-        GridLayout orden = new GridLayout(this.ahnoPixeles.getDIAS_DEL_MES(), this.ahnoPixeles.getMESES_DEL_ANHO());
+    public PanelPixeles(Ventana ventana) {
+        initComponents(ventana);
+    }
+
+    private void initComponents(Ventana ventana) {
+
+        int diasDelMes = ventana.getAnhoEnPixeles().getDIAS_DEL_MES();
+        int mesesDelAnho = ventana.getAnhoEnPixeles().getMESES_DEL_ANHO();
+        GridLayout orden = new GridLayout(diasDelMes, mesesDelAnho);
         this.setLayout(orden);
         
-        for(int dia = 1; dia <= this.ahnoPixeles.getDIAS_DEL_MES(); dia++) {
-            for (int mes = 1; mes <= this.ahnoPixeles.getMESES_DEL_ANHO(); mes++) {
-                JButton boton = crearBoton();
-                if (this.ahnoPixeles.getControlador().validacionNegativa(dia, mes)) {
-                    boton.setEnabled(false);
+        String [] meses = {"Ene","Feb","Mar","Abr","May","Jun",
+                           "Jul","Ago","Sep","Oct","Nov","Dic"};
+        
+        for (int dia = 0; dia < diasDelMes; dia++) {
+            for (int mes = 0; mes < mesesDelAnho; mes++) {
+                if (dia > 0 && mes > 0) {
+                    JButton boton = crearBoton();
+                    //siempre que el dia aun no haya transcurrido activo el boton
+                    if (ventana.getAnhoEnPixeles().getControlador().validacionNegativa(dia, mes)) {
+                        boton.setEnabled(false);
+                    }
+                    setListener(boton);
+                    this.add(boton);
                 }
-                setListener(boton);
-                this.add(boton);
+                else if (dia > 0 && mes == 0){
+                    this.add(new JLabel(String.valueOf(dia)));
+                }
+                else if (dia == 0 && mes > 0){
+                    this.add(new JLabel(meses[mes-1]));
+                }
+                else {
+                    this.add(new JLabel(""));
+                }
+                
             }
         }
     }
-    private JButton crearBoton(){
+
+    private JButton crearBoton() {
         JButton boton = new JButton();
         boton.setFocusPainted(false);
         boton.setContentAreaFilled(false);
-        boton.setPreferredSize(new Dimension(this.TAMANHO_BOTONES, this.TAMANHO_BOTONES));
         boton.setFocusable(false);
         return boton;
-        
+
     }
-    private void setListener(JButton boton){
+
+    private void setListener(JButton boton) {
         boton.addActionListener(
                 (ActionEvent e) -> {
-                    DialogOpcionActualizar dialogPrueba = new DialogOpcionActualizar(null, true, boton);
-                    dialogPrueba.setVisible(true);
+                    DialogOpcionActualizar dialogo = new DialogOpcionActualizar(null, true, boton);
+                    dialogo.setVisible(true);
                 }
         );
     }

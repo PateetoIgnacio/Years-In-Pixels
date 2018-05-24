@@ -50,14 +50,6 @@ public class PanelConfiguracion extends JPanel {
 
     }
 
-    private void setListener(JButton boton, int i) {
-        boton.addActionListener(
-                (ActionEvent e) -> {
-                    System.out.println("Presionaste el boton " + (i + 1));
-                }
-        );
-    }
-
     private JLabel crearJLabelTitulo() {
         JLabel jLabel = new JLabel();
         jLabel.setText("Personalizar");

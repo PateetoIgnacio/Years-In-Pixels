@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 
 public class PanelOpcionesDeGrafico extends JPanel {
 
-    private String[] nombreMeses = {"Ene", "Feb", "Mar", "Abr", "May", "Jun",
-        "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"};
+    private String[] nombreMeses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
     private JButton meses[];
 
     /* se guardaran la cantidad de veces un estado fue escogido (dato mensual) */
@@ -69,7 +69,7 @@ public class PanelOpcionesDeGrafico extends JPanel {
     private void inicializarArreglo() {
         for (int i = 0; i < this.nombreMeses.length; i++) {
             this.meses[i] = new JButton(nombreMeses[i]);
-            setListener(this.meses[i], String.valueOf(i));
+            setListener(this.meses[i], this.nombreMeses[i]);
         }
     }
 
@@ -105,4 +105,5 @@ public class PanelOpcionesDeGrafico extends JPanel {
         }
         System.out.println();
     }
+    
 }

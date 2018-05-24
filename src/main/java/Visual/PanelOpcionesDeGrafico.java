@@ -97,12 +97,4 @@ public class PanelOpcionesDeGrafico extends JPanel {
             this.datosPrueba[i] = random.nextInt(11 + 1) + 1;
         }
     }
-
-    private void mostrarArray() {
-        for (int i = 0; i < this.datosPrueba.length; i++) {
-            System.out.print(" " + this.datosPrueba[i]);
-        }
-        System.out.println();
-    }
-    
 }

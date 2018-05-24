@@ -7,13 +7,13 @@ import java.awt.*;
 
 public class Ventana extends JFrame {
 
-    private final int MEDIDA_EN_X = 600; //Width
-    private final int MEDIDA_EN_Y = 700; //Height
+    private final int MEDIDA_EN_X = 500; //Width
+    private final int MEDIDA_EN_Y = 650; //Height
 
     private AnhoEnPixeles anhoEnPixeles = new AnhoEnPixeles();
     private PanelActualizarEstado panelActualizarEstado;
     private PanelPixeles panelPixeles;
-    private PanelGrafico panelGrafico;
+    private PanelOpcionesDeGrafico panelOpcionesDeGrafico;
     private PanelConfiguracion panelConfiguracion;
 
     public Ventana() {
@@ -36,9 +36,9 @@ public class Ventana extends JFrame {
         pestañas.addTab("Calendario", this.panelPixeles);
         
         //Creamos el panel de Grafico y se adiciona al conjunto
-        this.panelGrafico = new PanelGrafico();
-        this.panelGrafico.setBackground(Color.WHITE);
-        pestañas.addTab("Gráfico", this.panelGrafico);
+        this.panelOpcionesDeGrafico = new PanelOpcionesDeGrafico(this.getAnhoEnPixeles().getCANTIDAD_DE_ESTADOS());
+        this.panelOpcionesDeGrafico.setBackground(Color.WHITE);
+        pestañas.addTab("Gráfico", this.panelOpcionesDeGrafico);
         
         //Creamos el panel de Configuraciones y se adiciona al conjunto
         this.panelConfiguracion = new PanelConfiguracion(this);

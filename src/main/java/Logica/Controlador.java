@@ -18,7 +18,7 @@ public class Controlador {
     }
     
     public boolean validacionNegativa(int dia, int mes){
-        return (getFechaActual().after(fechaPasada(dia, mes)));
+        return !(getFechaActual().after(fechaPasada(dia, mes)));
     }
     
     private Date fechaPasada(int dia, int mes){

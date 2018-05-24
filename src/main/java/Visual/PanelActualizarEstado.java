@@ -139,7 +139,7 @@ public class PanelActualizarEstado extends JPanel {
                 texto = "Triste. solitario. deprimido. inseguro. deprimido";
                 break;
             default:
-                texto = "Enojado. frustrado. irritable.molesto. gruñón";
+                texto = "Enojado. frustrado. irritable. molesto. gruñón";
                 break;
         }
         label.setText(texto);

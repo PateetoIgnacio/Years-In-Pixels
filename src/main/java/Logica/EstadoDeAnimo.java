@@ -4,28 +4,28 @@ package Logica;
 import java.awt.Color;
 
 public class EstadoDeAnimo {
-    private TipoDeEstado estado;
-    private Color colorRepresentacion;
+    private TipoDeEstado tipo;
+    private Color color;
 
     public EstadoDeAnimo(){
-        this.estado = TipoDeEstado.SIN_ESPECIFICAR;
-        this.colorRepresentacion = Color.white;
+        this.tipo = TipoDeEstado.SIN_ESPECIFICAR;
+        this.color = Color.white;
     }
 
-    public TipoDeEstado getEstado() {
-        return this.estado;
+    public TipoDeEstado getTipo() {
+        return this.tipo;
     }
 
-    public void setEstado(TipoDeEstado estado) {
-        this.estado = estado;
+    public void setTipo(TipoDeEstado estado) {
+        this.tipo = estado;
     }
 
-    public Color getColorRepresentacion() {
-        return this.colorRepresentacion;
+    public Color getColor() {
+        return this.color;
     }
 
-    public void setColorRepresentacion(Color colorRepresentacion) {
-        this.colorRepresentacion = colorRepresentacion;
+    public void setColor(Color colorRepresentacion) {
+        this.color = colorRepresentacion;
     }
 
 }

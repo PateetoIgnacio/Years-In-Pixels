@@ -41,7 +41,7 @@ public class AnhoEnPixeles {
                 }
                 //si son fechas que ya pasaron, pero se sale del rango de cambios
                 else if (this.controlador.validarFechaFutura(dia+6, mes+1)){
-                    ingresarEstado(dia, mes, 1);
+                    ingresarEstado(dia, mes, 5);
                 }
                 //si en los dias es posible hacer cambios
                 else{

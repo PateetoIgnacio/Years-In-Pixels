@@ -24,7 +24,7 @@ public class Ventana extends JFrame {
 
         //Creamos el conjunto de pestañas
         JTabbedPane pestañas = new JTabbedPane();
-
+        
         //Creamos el panel ActualizarEstado y se adiciona al conjunto
         this.panelActualizarEstado = new PanelActualizarEstado(this);
         this.panelActualizarEstado.setBackground(Color.WHITE);

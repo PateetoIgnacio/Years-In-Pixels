@@ -11,10 +11,10 @@ import javax.swing.JPanel;
 public class PanelPixeles extends JPanel {
 
     public PanelPixeles(Ventana ventana) {
-        initComponents(ventana);
+        actualizarComponentes(ventana);
     }
 
-    private void initComponents(Ventana ventana) {
+    private void actualizarComponentes(Ventana ventana) {
 
         int diasDelMes = ventana.getAnhoEnPixeles().getDIAS_DEL_MES()+1;
         int mesesDelAnho = ventana.getAnhoEnPixeles().getMESES_DEL_ANHO()+1;

@@ -32,7 +32,7 @@ public class PanelActualizarEstado extends JPanel {
         c.ipady = 150;
         c.weightx = 0.0;
         this.add(titulo, c);
-
+        
         inicializarArregloDeBotones(ventana);
 
         int cantidadDeItem = 2;
@@ -49,7 +49,7 @@ public class PanelActualizarEstado extends JPanel {
 
                 switch (item) {
                     case 0:
-                        c.anchor = GridBagConstraints.CENTER;
+                         c.anchor = GridBagConstraints.CENTER;
                         this.botonesDeColor[opcion] = crearBoton(ventana, opcion);
                         setListener(botonesDeColor[opcion], opcion);
                         this.add(this.botonesDeColor[opcion], c);
@@ -87,20 +87,18 @@ public class PanelActualizarEstado extends JPanel {
         return label;
     }
 
-    //Se asigna tamaño al arreglo de botones a mostrar
     private void inicializarArregloDeBotones(Ventana v) {
         int cantidadDeEstados = v.getAnhoEnPixeles().getCANTIDAD_DE_ESTADOS(); //no se considera el SIN_ESPECIFICAR
         this.botonesDeColor = new JButton[cantidadDeEstados];
     }
-
+    
     private JButton crearBoton(Ventana v, int indice) {
-        Color[] arregloColores = {Color.yellow, Color.green, Color.blue, Color.orange, Color.red};
         JButton boton = new JButton();
-        boton.setBackground(arregloColores[indice]);
+        boton.setBackground(v.getAnhoEnPixeles().getEstado(indice).getColor());
         boton.setPreferredSize(new Dimension(this.TAMANHO_BOTON, this.TAMANHO_BOTON));
         return boton;
     }
-
+    
     private JLabel crearLabelOpcion(int opcion) {
         JLabel label = new JLabel();
         String texto;

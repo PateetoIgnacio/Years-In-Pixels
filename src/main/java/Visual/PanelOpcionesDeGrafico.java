@@ -35,7 +35,7 @@ public class PanelOpcionesDeGrafico extends JPanel {
 
         JLabel titulo = initJLabelTitulo();
 
-        c.fill = GridBagConstraints.NONE;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
         c.gridy = 0;

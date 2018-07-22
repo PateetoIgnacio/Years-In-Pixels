@@ -11,7 +11,11 @@ public class EstadoDeAnimo {
         this.tipo = TipoDeEstado.SIN_ESPECIFICAR;
         this.color = Color.white;
     }
-
+    
+    public EstadoDeAnimo(TipoDeEstado tipo, Color color){
+        this.tipo = tipo;
+        this.color = color;
+    }
     public TipoDeEstado getTipo() {
         return this.tipo;
     }

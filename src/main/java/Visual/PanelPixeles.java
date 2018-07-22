@@ -1,5 +1,7 @@
 package Visual;
 
+import Logica.EstadoDeAnimo;
+import Logica.TipoDeEstado;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
@@ -14,8 +16,8 @@ public class PanelPixeles extends JPanel {
 
     private void initComponents(Ventana ventana) {
 
-        int diasDelMes = ventana.getAnhoEnPixeles().getDIAS_DEL_MES();
-        int mesesDelAnho = ventana.getAnhoEnPixeles().getMESES_DEL_ANHO();
+        int diasDelMes = ventana.getAnhoEnPixeles().getDIAS_DEL_MES()+1;
+        int mesesDelAnho = ventana.getAnhoEnPixeles().getMESES_DEL_ANHO()+1;
         GridLayout orden = new GridLayout(diasDelMes, mesesDelAnho);
         this.setLayout(orden);
         
@@ -26,8 +28,9 @@ public class PanelPixeles extends JPanel {
             for (int mes = 0; mes < mesesDelAnho; mes++) {
                 if (dia > 0 && mes > 0) {
                     JButton boton = crearBoton();
-                    //siempre que el dia aun no haya transcurrido activo el boton
-                    if (ventana.getAnhoEnPixeles().getControlador().validacionNegativa(dia, mes)) {
+                    EstadoDeAnimo estado = ventana.getAnhoEnPixeles().getEstadoEnLaFecha(dia-1, mes-1);
+                    boton.setBackground(estado.getColor());
+                    if(estado.getTipo() == TipoDeEstado.SIN_ESPECIFICAR) {
                         boton.setEnabled(false);
                     }
                     setListener(boton);

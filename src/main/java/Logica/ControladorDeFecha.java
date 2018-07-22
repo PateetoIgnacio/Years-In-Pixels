@@ -17,11 +17,17 @@ public class ControladorDeFecha {
         return this.fechaActual; 
     }
     
-    public boolean validacionNegativa(int dia, int mes){
-        return !(getFechaActual().after(fechaPasada(dia, mes)));
+    public boolean validarFechaFutura(int dia, int mes){
+        return (getFechaActual().after(crearFecha(dia, mes)));
+    }
+    public boolean validarFechaPasada(int dia, int mes){
+        return (getFechaActual().before(crearFecha(dia, mes)));
+    }
+    public boolean validarFechaActual(int dia, int mes){
+        return (getFechaActual().equals(crearFecha(dia, mes)));
     }
     
-    private Date fechaPasada(int dia, int mes){
+    private Date crearFecha(int dia, int mes){
         Calendar auxiliar = Calendar.getInstance();
         auxiliar.set(Calendar.YEAR, 2018);
         auxiliar.set(Calendar.MONTH, mes - 1);

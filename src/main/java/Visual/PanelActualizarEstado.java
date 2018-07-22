@@ -8,7 +8,6 @@ public class PanelActualizarEstado extends JPanel {
 
     private final int TAMANHO_BOTON = 50;
     private JButton[] botonesDeColor;
-    private JButton btnOpcionAunNo;
     private JButton btnOpcionGuardar;
 
     public PanelActualizarEstado(Ventana ventana) {
@@ -64,24 +63,19 @@ public class PanelActualizarEstado extends JPanel {
             }
         }
 
-        initBottonsInferiores();
+        initBottonInferior();
 
         c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.LINE_END;
+        c.anchor = GridBagConstraints.CENTER;
         c.insets = new Insets(10, 0, 0, 0);
         c.gridx = 0;
         c.gridy = this.botonesDeColor.length + 1;
         c.gridwidth = 1;
-        c.gridheight = 1;
+        c.gridheight = 2;
         c.ipadx = 0;
         c.ipady = 0;
         c.weightx = 1.0;
         c.weighty = 1.0;
-        this.add(this.btnOpcionAunNo, c);
-
-        c.anchor = GridBagConstraints.CENTER;
-        c.gridx = 1;
-        c.gridy = this.botonesDeColor.length + 1;
         this.add(this.btnOpcionGuardar, c);
 
     }
@@ -140,10 +134,8 @@ public class PanelActualizarEstado extends JPanel {
         );
     }
 
-    private void initBottonsInferiores() {
-        String texto1 = "Aún no";
+    private void initBottonInferior() {
         String texto2 = "Guardar mi día";
-        this.btnOpcionAunNo = new JButton(texto1);
         this.btnOpcionGuardar = new JButton(texto2);
     }
 

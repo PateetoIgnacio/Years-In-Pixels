@@ -4,6 +4,7 @@ import Logica.AnhoEnPixeles;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.ParseException;
 
 public class Ventana extends JFrame {
 
@@ -16,7 +17,7 @@ public class Ventana extends JFrame {
     private PanelOpcionesDeGrafico panelOpcionesDeGrafico;
     private PanelConfiguracion panelConfiguracion;
 
-    public Ventana() {
+    public Ventana() throws ParseException {
         initComponents();
     }
 

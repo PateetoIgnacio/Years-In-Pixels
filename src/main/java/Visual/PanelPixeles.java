@@ -15,7 +15,7 @@ public class PanelPixeles extends JPanel {
     }
 
     private void actualizarComponentes(Ventana ventana) {
-
+        
         int diasDelMes = ventana.getAnhoEnPixeles().getDIAS_DEL_MES()+1;
         int mesesDelAnho = ventana.getAnhoEnPixeles().getMESES_DEL_ANHO()+1;
         GridLayout orden = new GridLayout(diasDelMes, mesesDelAnho);
@@ -24,17 +24,20 @@ public class PanelPixeles extends JPanel {
         String [] meses = {"Ene","Feb","Mar","Abr","May","Jun",
                            "Jul","Ago","Sep","Oct","Nov","Dic"};
         
+        System.out.println("La cantidad de elementos es "+ventana.getAnhoEnPixeles().cantidadDeElementos());
+        int posicion = 0;
         for (int dia = 0; dia < diasDelMes; dia++) {
             for (int mes = 0; mes < mesesDelAnho; mes++) {
                 if (dia > 0 && mes > 0) {
                     JButton boton = crearBoton();
-                    EstadoDeAnimo estado = ventana.getAnhoEnPixeles().getEstadoEnLaFecha(dia-1, mes-1);
+                    EstadoDeAnimo estado = ventana.getAnhoEnPixeles().getEstadoEnLaFecha(dia, mes);
                     boton.setBackground(estado.getColor());
                     if(estado.getTipo() == TipoDeEstado.SIN_ESPECIFICAR) {
                         boton.setEnabled(false);
                     }
                     setListener(boton);
                     this.add(boton);
+                    posicion++;
                 }
                 else if (dia > 0 && mes == 0){
                     this.add(new JLabel(String.valueOf(dia)));

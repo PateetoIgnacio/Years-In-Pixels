@@ -4,7 +4,6 @@ import Logica.AnhoEnPixeles;
 
 import javax.swing.*;
 import java.awt.*;
-import java.text.ParseException;
 
 public class Ventana extends JFrame {
 

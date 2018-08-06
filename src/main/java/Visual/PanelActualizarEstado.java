@@ -26,10 +26,13 @@ public class PanelActualizarEstado extends JPanel {
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
         c.gridy = 0;
+        
         c.gridwidth = 2;
         c.gridheight = 1;
+        
         c.ipadx = 0;
         c.ipady = 150;
+        
         c.weightx = 0.0;
         this.add(titulo, c);
         
@@ -44,7 +47,7 @@ public class PanelActualizarEstado extends JPanel {
                 c.gridwidth = 1;
                 c.gridheight = 1;
                 c.ipadx = 0;
-                c.ipady = 0;
+                c.ipady = 25;
                 c.weightx = 1.0;
 
                 switch (item) {
@@ -68,12 +71,16 @@ public class PanelActualizarEstado extends JPanel {
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.CENTER;
         c.insets = new Insets(10, 0, 0, 0);
+        
         c.gridx = 0;
         c.gridy = this.botonesDeColor.length + 1;
-        c.gridwidth = 1;
-        c.gridheight = 2;
+        
+        c.gridwidth = 2;
+        c.gridheight = 1;
+        
         c.ipadx = 0;
         c.ipady = 0;
+        
         c.weightx = 1.0;
         c.weighty = 1.0;
         this.add(this.btnOpcionGuardar, c);
@@ -81,8 +88,7 @@ public class PanelActualizarEstado extends JPanel {
     }
 
     private JLabel initJLabelTitulo() {
-        String titulo = "¿Cómo estuviste hoy?";
-        JLabel label = new JLabel(titulo);
+        JLabel label = new JLabel("¿Cómo estuviste hoy?");
         label.setFont(new Font("Noteworthy", 0, 30));
         return label;
     }
@@ -95,7 +101,7 @@ public class PanelActualizarEstado extends JPanel {
     private JButton crearBoton(Ventana v, int indice) {
         JButton boton = new JButton();
         boton.setBackground(v.getAnhoEnPixeles().getEstado(indice).getColor());
-        boton.setPreferredSize(new Dimension(this.TAMANHO_BOTON, this.TAMANHO_BOTON));
+        boton.setSize(new Dimension(this.TAMANHO_BOTON, this.TAMANHO_BOTON));
         return boton;
     }
     

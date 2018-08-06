@@ -9,7 +9,7 @@ import java.text.ParseException;
 public class Ventana extends JFrame {
 
     private final int MEDIDA_EN_X = 500; //Width
-    private final int MEDIDA_EN_Y = 650; //Height
+    private final int MEDIDA_EN_Y = 700; //Height
 
     private AnhoEnPixeles anhoEnPixeles = new AnhoEnPixeles();
     private PanelActualizarEstado panelActualizarEstado;

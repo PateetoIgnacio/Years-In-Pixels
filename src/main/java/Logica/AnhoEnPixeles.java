@@ -28,7 +28,7 @@ public class AnhoEnPixeles {
         this.opcionesDeEstados[2] = new EstadoDeAnimo(TipoDeEstado.ESTADO_3, Color.blue);
         this.opcionesDeEstados[3] = new EstadoDeAnimo(TipoDeEstado.ESTADO_4, Color.orange);
         this.opcionesDeEstados[4] = new EstadoDeAnimo(TipoDeEstado.ESTADO_5, Color.red);
-        this.opcionesDeEstados[5] = new EstadoDeAnimo(TipoDeEstado.SIN_ESPECIFICAR, Color.white);
+        this.opcionesDeEstados[5] = new EstadoDeAnimo(TipoDeEstado.SIN_ESPECIFICAR, Color.darkGray);
 
     }
     

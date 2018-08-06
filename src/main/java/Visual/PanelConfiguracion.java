@@ -13,6 +13,9 @@ public class PanelConfiguracion extends JPanel {
     public JButton btnAjustarColores;
     public JButton btnAjustarNotificacion;
     public JButton btnEditarFondo;
+    public JButton btnColores;
+    public JButton btnNotificaciones;
+    public JButton btnFondo;
 
     public PanelConfiguracion(Ventana ventana) {
         initComponents(ventana);
@@ -85,15 +88,17 @@ public class PanelConfiguracion extends JPanel {
         switch (opcion) {
             case 1:
                 boton.setText("Colores");
+                setListenerColores(boton);
                 break;
             case 2:
                 boton.setText("Notificaciones");
+                setListenerNotificaciones(boton);
                 break;
             default:
                 boton.setText("Fondo");
+                setListenerFondo(boton);
                 break;
         }
-        setListener(boton);
         this.add(boton, c);
     }
 
@@ -116,12 +121,29 @@ public class PanelConfiguracion extends JPanel {
         return jLabel;
     }
 
-    private void setListener(JButton boton) {
+    private void setListenerColores(JButton boton) {
         boton.addActionListener(
                 (ActionEvent e) -> {
                     System.out.println("presionaste un botón");
                 }
         );
     }
+    
+    private void setListenerNotificaciones(JButton boton) {
+        boton.addActionListener(
+                (ActionEvent e) -> {
+                    System.out.println("presionaste un botón");
+                }
+        );
+    }
+    
+    private void setListenerFondo(JButton boton) {
+        boton.addActionListener(
+                (ActionEvent e) -> {
+                    System.out.println("presionaste un botón");
+                }
+        );
+    }
+    
 
 }

@@ -17,7 +17,7 @@ public class Ventana extends JFrame {
     private PanelOpcionesDeGrafico panelOpcionesDeGrafico;
     private PanelConfiguracion panelConfiguracion;
 
-    public Ventana() throws ParseException {
+    public Ventana(){
         initComponents();
     }
 

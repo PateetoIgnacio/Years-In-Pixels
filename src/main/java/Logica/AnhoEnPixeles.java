@@ -83,9 +83,9 @@ public class AnhoEnPixeles {
         for (int dia = 0; dia < this.DIAS_DEL_MES; dia++) {
             for (int mes = 0; mes < this.MESES_DEL_ANHO; mes++) {
                 if (this.controlador.validarFechaPasada(dia + 1, mes + 1)) {
-                    this.calendarioEstados.add(posicion, this.opcionesDeEstados[5]);
+                    this.calendarioEstados.add(posicion, this.opcionesDeEstados[2]);
                 } else if (this.controlador.validarFechaFutura(dia + 1, mes + 1)) {
-                    this.calendarioEstados.add(posicion, this.opcionesDeEstados[5]);
+                    this.calendarioEstados.add(posicion, this.opcionesDeEstados[1]);
                 } else {
                     this.calendarioEstados.add(posicion, this.opcionesDeEstados[5]);
                 }
@@ -95,7 +95,7 @@ public class AnhoEnPixeles {
     }
 
     private void inicializarArchivos() {
-        this.listaDeArchivos[0] = new Archivo("usuarios", "user", TipoDeArchivo.CALENDARIO);
+        this.listaDeArchivos[0] = new Archivo("usuarios", "jaime", TipoDeArchivo.CALENDARIO);
         this.listaDeArchivos[1] = new Archivo("usuarios", "user", TipoDeArchivo.COLORES_DE_OPCIONES);
         this.listaDeArchivos[2] = new Archivo("usuarios", "user_prueba", TipoDeArchivo.CALENDARIO);
     }
@@ -129,16 +129,14 @@ public class AnhoEnPixeles {
     }
 
     public EstadoDeAnimo getEstadoEnLaFecha(int dia, int mes) {
-        EstadoDeAnimo estado = new EstadoDeAnimo();
         int diasTranscurridos = calcularDiferencia(dia, mes);
-        System.out.println("Los dias transcurridos son: " + diasTranscurridos);
         return this.calendarioEstados.get(diasTranscurridos);
     }
 
     private void inicializarFinal() {
         if (!carpetaExiste(this.listaDeArchivos[2])) {
-            //establecerParametrosIniciales();
-            establecerParametrosRandom();
+            establecerParametrosIniciales();
+            //establecerParametrosRandom();
             this.manejoArchivos.cargarCalendario(this.calendarioEstados, obtenerArchivo(2));
             //this.calendarioEstados.forEach(n -> System.out.println(n.toString()));
         } else {

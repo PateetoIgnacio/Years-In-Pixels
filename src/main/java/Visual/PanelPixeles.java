@@ -2,6 +2,7 @@ package Visual;
 
 import Logica.EstadoDeAnimo;
 import Logica.TipoDeEstado;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
@@ -31,6 +32,7 @@ public class PanelPixeles extends JPanel {
                 if (dia > 0 && mes > 0) {
                     JButton boton = crearBoton();
                     EstadoDeAnimo estado = ventana.getAnhoEnPixeles().getEstadoEnLaFecha(dia, mes);
+                    System.out.println(posicion + ": "+estado.toString());
                     boton.setBackground(estado.getColor());
                     if(estado.getTipo() == TipoDeEstado.SIN_ESPECIFICAR) {
                         boton.setEnabled(false);
@@ -55,9 +57,9 @@ public class PanelPixeles extends JPanel {
 
     private JButton crearBoton() {
         JButton boton = new JButton();
-        boton.setFocusPainted(false);
-        boton.setContentAreaFilled(false);
-        boton.setFocusable(false);
+        boton.setFocusPainted(true);
+        boton.setContentAreaFilled(true);
+        boton.setFocusable(true);
         return boton;
 
     }

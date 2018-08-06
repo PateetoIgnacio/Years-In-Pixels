@@ -1,11 +1,13 @@
-
 package Logica;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
 public class ControladorDeFecha {
+
     private Date fechaActual;
 
     public ControladorDeFecha() {
@@ -14,20 +16,31 @@ public class ControladorDeFecha {
     }
 
     public Date getFechaActual() {
-        return this.fechaActual; 
+        return this.fechaActual;
     }
-    
-    public boolean validarFechaFutura(int dia, int mes){
+
+    public boolean validarFechaPasada(int dia, int mes) {
         return (getFechaActual().after(crearFecha(dia, mes)));
     }
-    public boolean validarFechaPasada(int dia, int mes){
+
+    public boolean validarFechaFutura(int dia, int mes) {
         return (getFechaActual().before(crearFecha(dia, mes)));
     }
-    public boolean validarFechaActual(int dia, int mes){
+
+    public boolean validarFechaActual(int dia, int mes) {
         return (getFechaActual().equals(crearFecha(dia, mes)));
     }
-    
-    private Date crearFecha(int dia, int mes){
+
+    public int diasTranscurridos(int dia, int mes) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date fechaInicial = crearFecha(01, 01);
+        Date fechaFinal = crearFecha(dia, mes);
+
+        return (int) ((fechaFinal.getTime() - fechaInicial.getTime()) / 86400000);
+    }
+
+    private Date crearFecha(int dia, int mes) {
         Calendar auxiliar = Calendar.getInstance();
         auxiliar.set(Calendar.YEAR, 2018);
         auxiliar.set(Calendar.MONTH, mes - 1);

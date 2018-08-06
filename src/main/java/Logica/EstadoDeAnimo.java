@@ -2,8 +2,9 @@
 package Logica;
 
 import java.awt.Color;
+import java.io.Serializable;
 
-public class EstadoDeAnimo {
+public class EstadoDeAnimo implements Serializable{
     private TipoDeEstado tipo;
     private Color color;
 
@@ -31,5 +32,11 @@ public class EstadoDeAnimo {
     public void setColor(Color colorRepresentacion) {
         this.color = colorRepresentacion;
     }
+
+    @Override
+    public String toString() {
+        return "EstadoDeAnimo{" + "tipo=" + tipo + ", color=" + color + '}';
+    }
+    
 
 }

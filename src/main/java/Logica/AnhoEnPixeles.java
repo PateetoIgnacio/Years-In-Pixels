@@ -6,102 +6,84 @@ import Utils.TipoDeArchivo;
 import java.awt.Color;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class AnhoEnPixeles {
 
-    private final int CANTIDAD_DE_RESPALDOS = 3;
     private final int MESES_DEL_ANHO = 12;
     private final int DIAS_DEL_MES = 31;
     private final int CANTIDAD_DE_ESTADOS = 5;
 
-    private EstadoDeAnimo[] opcionesDeEstados;
-    private EstadoDeAnimo[][] calendarioDeEstados;
-
-    private ArrayList<EstadoDeAnimo> calendarioEstados;
-    private ArrayList<EstadoDeAnimo> calendarioPrueba;
-
+    private EstadoDeAnimo[] detallesDeLosEstados;
     private ControladorDeFecha controlador;
-
+    private ArrayList<EstadoDeAnimo> registroEstados;
+    private ArrayList<EstadoDeAnimo> detalles;
     private ManejoDeArchivos manejoArchivos;
-    private Archivo[] listaDeArchivos;
+    private List<Usuario> usuarios;
+    private int idUsuario;
 
-    public AnhoEnPixeles() {
-        this.opcionesDeEstados = new EstadoDeAnimo[this.CANTIDAD_DE_ESTADOS + 1]; //se considera el estado que no esta especificado
+    public AnhoEnPixeles(Usuario usuario) {
+        this.detallesDeLosEstados = new EstadoDeAnimo[this.CANTIDAD_DE_ESTADOS + 1]; //se considera el estado que no esta especificado
         this.controlador = new ControladorDeFecha();
-        this.listaDeArchivos = new Archivo[this.CANTIDAD_DE_RESPALDOS];
         this.manejoArchivos = new ManejoDeArchivos();
+        this.registroEstados = new ArrayList<>();
+        this.detalles = new ArrayList<>();
+        this.usuarios = new ArrayList<>();
 
-        this.calendarioDeEstados = new EstadoDeAnimo[this.DIAS_DEL_MES][this.MESES_DEL_ANHO];
-        this.calendarioEstados = new ArrayList<>();
-
-        this.calendarioPrueba = new ArrayList<>();
+        inicializarArrayUsuario(usuario);
         inicializarOpciones();
-        inicializarArchivos();
-
-        inicializarFinal();
+        inicializarArrayCalendario();
 
     }
 
     private void inicializarOpciones() {
-        this.opcionesDeEstados[0] = new EstadoDeAnimo(TipoDeEstado.ESTADO_1, Color.yellow);
-        this.opcionesDeEstados[1] = new EstadoDeAnimo(TipoDeEstado.ESTADO_2, Color.green);
-        this.opcionesDeEstados[2] = new EstadoDeAnimo(TipoDeEstado.ESTADO_3, Color.blue);
-        this.opcionesDeEstados[3] = new EstadoDeAnimo(TipoDeEstado.ESTADO_4, Color.orange);
-        this.opcionesDeEstados[4] = new EstadoDeAnimo(TipoDeEstado.ESTADO_5, Color.red);
-        this.opcionesDeEstados[5] = new EstadoDeAnimo(TipoDeEstado.SIN_ESPECIFICAR, Color.white);
-    }
-
-    /*
-    private void inicializarCalendario() {
-
-        for (int dia = 0; dia < this.DIAS_DEL_MES; dia++) {
-            for (int mes = 0; mes < this.MESES_DEL_ANHO; mes++) {
-                //si son fechas futuras
-                if (this.controlador.validarFechaPasada(dia + 1, mes + 1)) {
-                    ingresarEstado(dia, mes, 5); //el cinco correspone al estado sin especificar dentro del arreglo de opciones
-
-                } //si son fechas que ya pasaron, pero se sale del rango de cambios
-                else if (this.controlador.validarFechaFutura(dia + 6, mes + 1)) {
-                    ingresarEstado(dia, mes, 5);
-
-                } //si en los dias es posible hacer cambios
-                else {
-                    ingresarEstado(dia, mes, 0);
-
-                }
-            }
+        Archivo archivoAux = this.usuarios.get(this.idUsuario).getArchivo(TipoDeArchivo.COLORES_DE_OPCIONES);
+        if (!archivoExiste(archivoAux)) {
+            this.detalles.add(new EstadoDeAnimo(TipoDeEstado.ESTADO_1, Color.yellow));
+            this.detalles.add(new EstadoDeAnimo(TipoDeEstado.ESTADO_2, Color.green));
+            this.detalles.add(new EstadoDeAnimo(TipoDeEstado.ESTADO_3, Color.blue));
+            this.detalles.add(new EstadoDeAnimo(TipoDeEstado.ESTADO_4, Color.orange));
+            this.detalles.add(new EstadoDeAnimo(TipoDeEstado.ESTADO_5, Color.red));
+            this.detalles.add(new EstadoDeAnimo());
+            this.manejoArchivos.cargarEstados(this.detalles, archivoAux);
+        } else {
+            this.detalles = this.manejoArchivos.recuperarEstados(archivoAux);
         }
+        this.registroEstados.forEach(n -> System.out.println(n.toString()));
+
     }
 
-    public void ingresarEstado(int dia, int mes, int indice) {
-        this.calendarioDeEstados[dia][mes] = this.opcionesDeEstados[indice];
-    }
-     */
+    
     private void establecerParametrosIniciales() {
         int posicion = 0;
         for (int dia = 0; dia < this.DIAS_DEL_MES; dia++) {
             for (int mes = 0; mes < this.MESES_DEL_ANHO; mes++) {
                 if (this.controlador.validarFechaPasada(dia + 1, mes + 1)) {
-                    this.calendarioEstados.add(posicion, this.opcionesDeEstados[2]);
+                    this.registroEstados.add(posicion, this.detallesDeLosEstados[5]);
                 } else if (this.controlador.validarFechaFutura(dia + 1, mes + 1)) {
-                    this.calendarioEstados.add(posicion, this.opcionesDeEstados[1]);
+                    this.registroEstados.add(posicion, this.detallesDeLosEstados[5]);
                 } else {
-                    this.calendarioEstados.add(posicion, this.opcionesDeEstados[5]);
+                    this.registroEstados.add(posicion, this.detallesDeLosEstados[5]);
                 }
                 posicion++;
             }
         }
     }
+     
+    private void inicializarArrayCalendario() {
+        Archivo archivoAux = this.usuarios.get(this.idUsuario).getArchivo(TipoDeArchivo.CALENDARIO);
+        if (!archivoExiste(archivoAux)) {
+            //establecerParametrosIniciales();
+            establecerParametrosRandom();
+            this.manejoArchivos.cargarEstados(this.registroEstados, archivoAux);
+            //this.registroEstados.forEach(n -> System.out.println(n.toString()));
 
-    private void inicializarArchivos() {
-        this.listaDeArchivos[0] = new Archivo("usuarios", "jaime", TipoDeArchivo.CALENDARIO);
-        this.listaDeArchivos[1] = new Archivo("usuarios", "user", TipoDeArchivo.COLORES_DE_OPCIONES);
-        this.listaDeArchivos[2] = new Archivo("usuarios", "user_prueba", TipoDeArchivo.CALENDARIO);
-    }
+        } else {
+            this.registroEstados = this.manejoArchivos.recuperarEstados(archivoAux);
+            //this.registroEstados.forEach(n -> System.out.println(n.toString()));
+        }
 
-    public Archivo obtenerArchivo(int indicador) {
-        return this.listaDeArchivos[indicador];
     }
 
     public int getMESES_DEL_ANHO() {
@@ -117,11 +99,11 @@ public class AnhoEnPixeles {
     }
 
     public EstadoDeAnimo[] getOpcionesDeEstados() {
-        return this.opcionesDeEstados;
+        return this.detallesDeLosEstados;
     }
 
     public EstadoDeAnimo getEstado(int indice) {
-        return this.opcionesDeEstados[indice];
+        return this.detalles.get(this.idUsuario);
     }
 
     public ControladorDeFecha getControlador() {
@@ -130,22 +112,10 @@ public class AnhoEnPixeles {
 
     public EstadoDeAnimo getEstadoEnLaFecha(int dia, int mes) {
         int diasTranscurridos = calcularDiferencia(dia, mes);
-        return this.calendarioEstados.get(diasTranscurridos);
+        return this.registroEstados.get(diasTranscurridos);
     }
 
-    private void inicializarFinal() {
-        if (!carpetaExiste(this.listaDeArchivos[2])) {
-            establecerParametrosIniciales();
-            //establecerParametrosRandom();
-            this.manejoArchivos.cargarCalendario(this.calendarioEstados, obtenerArchivo(2));
-            //this.calendarioEstados.forEach(n -> System.out.println(n.toString()));
-        } else {
-            this.calendarioEstados = this.manejoArchivos.recuperarCalendario(obtenerArchivo(2));
-            //this.calendarioEstados.forEach(n -> System.out.println(n.toString()));
-        }
-    }
-
-    private boolean carpetaExiste(Archivo archivo) {
+    private boolean archivoExiste(Archivo archivo) {
         File file = archivo.getFile();
         return file.exists();
     }
@@ -155,7 +125,7 @@ public class AnhoEnPixeles {
     }
 
     public int cantidadDeElementos() {
-        return this.calendarioEstados.size();
+        return this.registroEstados.size();
     }
 
     private void establecerParametrosRandom() {
@@ -164,10 +134,45 @@ public class AnhoEnPixeles {
         for (int dia = 0; dia < this.DIAS_DEL_MES; dia++) {
             for (int mes = 0; mes < this.MESES_DEL_ANHO; mes++) {
                 opcion = random.nextInt(6);
-                    this.calendarioEstados.add(posicion, opcionesDeEstados[opcion]);
+                this.registroEstados.add(posicion, detalles.get(opcion));
                 posicion++;
             }
         }
+    }
+
+    private boolean usuarioSeEncuentra(Usuario usuario) {
+        boolean usuarioSeEncuentra = false;
+        for (Usuario usuarioAux : this.usuarios) {
+            //evaluamos si el usuario recibido pertenece al array
+            if (usuarioAux.compararUsuarios(usuario)) {
+                usuarioSeEncuentra = true;
+                //se guarda la posicion en la que se encontraba el usuario
+                this.idUsuario = this.usuarios.indexOf(usuarioAux);
+            }
+        }
+        return usuarioSeEncuentra;
+    }
+
+    private void inicializarArrayUsuario(Usuario usuario) {
+        //Usuario prueba = new Usuario("usuario", "contraseña");
+        //this.usuarios.add(prueba);
+
+        //si el usuario no estaba registrado, lo ingreso al array
+        if (!usuarioSeEncuentra(usuario)) {
+            //le asigno un identificador el cual usamos para hacerle referencia
+            usuario.setNumIdentificador(this.usuarios.size());
+            //se agrega en el array
+            this.usuarios.add(usuario);
+            //asignamos la identificacion del usuario con el cual se trabajara
+            this.idUsuario = usuario.getNumIdentificador();
+        } else {
+
+            //falta programar!!!
+            System.out.println("el usuario se encontraba!");
+        }
+
+        this.usuarios.forEach(x -> System.out.println(x.toString()));
+
     }
 
 }

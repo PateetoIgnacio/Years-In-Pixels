@@ -29,7 +29,7 @@ public class ManejoDeArchivos {
 
     }
 
-    public void cargarCalendario(ArrayList<EstadoDeAnimo> estados, Archivo archivo) {
+    public void cargarEstados(ArrayList<EstadoDeAnimo> estados, Archivo archivo) {
 
         try {
             File f = archivo.getFile();
@@ -38,7 +38,6 @@ public class ManejoDeArchivos {
 
             for (EstadoDeAnimo estado : estados) {
                 oo.writeObject(estado);
-
             }
 
         } catch (IOException e) {
@@ -74,7 +73,7 @@ public class ManejoDeArchivos {
         return objetos;
     }
 
-    public ArrayList<EstadoDeAnimo> recuperarCalendario(Archivo archivo) {
+    public ArrayList<EstadoDeAnimo> recuperarEstados(Archivo archivo) {
 
         ArrayList<EstadoDeAnimo> estados = new ArrayList<>();
 

@@ -62,7 +62,8 @@ public class VentanaInicioSesion extends JFrame implements ActionListener{
         this.btnAgregarUsuario.setBorder(null);
         this.btnAgregarUsuario.setContentAreaFilled(false);
         this.btnAgregarUsuario.addActionListener(this);
-        this.btnAgregarUsuario.setBounds(300, 590, 50, 40);
+        this.btnAgregarUsuario.setToolTipText("Agregar nuevo usuario");
+        this.btnAgregarUsuario.setBounds(290, 590, 50, 40);
         getContentPane().add(btnAgregarUsuario);
         
         //Configuración ingresar con usuario especificado
@@ -70,8 +71,9 @@ public class VentanaInicioSesion extends JFrame implements ActionListener{
         this.btnIngresar.setBorder(null);
         this.btnIngresar.setContentAreaFilled(false);
         this.btnIngresar.addActionListener(this);
-        getContentPane().add(this.btnIngresar);
+        this.btnIngresar.setToolTipText("Iniciar sesión");
         this.btnIngresar.setBounds(390, 590, 50, 40);
+        getContentPane().add(this.btnIngresar);
         
         //Configuraciones del boton salir
         this.btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout.png")));
@@ -79,6 +81,7 @@ public class VentanaInicioSesion extends JFrame implements ActionListener{
         this.btnSalir.setBorderPainted(false);
         this.btnSalir.setContentAreaFilled(false);
         this.btnSalir.addActionListener(this);
+        this.btnSalir.setToolTipText("Salir");
         this.btnSalir.setBounds(610, 10, 90, 70);
         getContentPane().add(this.btnSalir);
         

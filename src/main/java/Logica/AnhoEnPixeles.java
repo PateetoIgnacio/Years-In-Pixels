@@ -145,7 +145,7 @@ public class AnhoEnPixeles {
     }
 
     public EstadoDeAnimo getEstado(int indice) {
-        return this.detalles.get(this.idUsuario);
+        return this.detalles.get(indice);
     }
 
     public ControladorDeFecha getControlador() {

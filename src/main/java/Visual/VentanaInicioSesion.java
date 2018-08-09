@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 public class VentanaInicioSesion extends JFrame implements ActionListener{
@@ -36,12 +37,12 @@ public class VentanaInicioSesion extends JFrame implements ActionListener{
         this.fondoLbl = new JLabel();
         
         //Configuraciones del frame
-        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setUndecorated(true);
         getContentPane().setLayout(null);
         
         //Configuracion de la imagen usuario
-        this.usuarioLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png")));
+        this.usuarioLbl.setIcon(new ImageIcon(getClass().getResource("/usuario.png")));
         this.usuarioLbl.setBounds(225, 150, 260, 270);
         getContentPane().add(this.usuarioLbl);
         
@@ -58,7 +59,7 @@ public class VentanaInicioSesion extends JFrame implements ActionListener{
         getContentPane().add(this.contrasenia);
         
         //Configuración botón agregar usuario
-        this.btnAgregarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mas.png"))); // NOI18N
+        this.btnAgregarUsuario.setIcon(new ImageIcon(getClass().getResource("/mas.png"))); // NOI18N
         this.btnAgregarUsuario.setBorder(null);
         this.btnAgregarUsuario.setContentAreaFilled(false);
         this.btnAgregarUsuario.addActionListener(this);
@@ -67,7 +68,7 @@ public class VentanaInicioSesion extends JFrame implements ActionListener{
         getContentPane().add(btnAgregarUsuario);
         
         //Configuración ingresar con usuario especificado
-        this.btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login.png"))); // NOI18N
+        this.btnIngresar.setIcon(new ImageIcon(getClass().getResource("/login.png"))); // NOI18N
         this.btnIngresar.setBorder(null);
         this.btnIngresar.setContentAreaFilled(false);
         this.btnIngresar.addActionListener(this);
@@ -76,7 +77,7 @@ public class VentanaInicioSesion extends JFrame implements ActionListener{
         getContentPane().add(this.btnIngresar);
         
         //Configuraciones del boton salir
-        this.btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout.png")));
+        this.btnSalir.setIcon(new ImageIcon(getClass().getResource("/logout.png")));
         this.btnSalir.setBorder(null);
         this.btnSalir.setBorderPainted(false);
         this.btnSalir.setContentAreaFilled(false);
@@ -87,7 +88,7 @@ public class VentanaInicioSesion extends JFrame implements ActionListener{
         
         
         //Configuraciones del label fondo
-        this.fondoLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mt-rainier-with-powerlines-prints-678.jpg")));
+        this.fondoLbl.setIcon(new ImageIcon(getClass().getResource("/mt-rainier-with-powerlines-prints-678.jpg")));
         this.fondoLbl.setBounds(0, 0, 700, 700);
         getContentPane().add(this.fondoLbl);
         
@@ -103,7 +104,7 @@ public class VentanaInicioSesion extends JFrame implements ActionListener{
             System.exit(0);
         }else if (this.btnIngresar == e.getSource()){
             Usuario user = new Usuario(usuario.getText(), contrasenia.getText());
-            Ventana ventana = new Ventana(new Usuario("usuario", "contraseña"));
+            //Ventana ventana = new Ventana(new Usuario("usuario", "contraseña"));
             this.setVisible(false);
         }
         

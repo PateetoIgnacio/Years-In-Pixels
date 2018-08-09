@@ -127,6 +127,10 @@ public class AnhoEnPixeles {
         return this.registroEstados.size();
     }
 
+    public ArrayList<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
     private void establecerParametrosRandom() {
         Random random = new Random();
         int posicion = 0, opcion;

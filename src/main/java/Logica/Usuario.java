@@ -39,7 +39,6 @@ public class Usuario {
         this.numIdentificador = numIdentificador;
     }
     
-    
     public Archivo getArchivo(TipoDeArchivo tipo){
         Archivo archivo = null;
         switch(tipo){
@@ -55,7 +54,7 @@ public class Usuario {
         }
         return archivo;
     }
-
+    
     public boolean compararUsuarios(Object obj){
         if (this == obj) {
             return true;

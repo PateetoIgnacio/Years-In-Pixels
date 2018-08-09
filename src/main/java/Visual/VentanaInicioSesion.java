@@ -1,14 +1,18 @@
 package Visual;
 
 import Logica.Usuario;
-import Utils.TipoDeArchivo;
+import Utils.Archivo;
+import Utils.ManejoDeArchivos;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import org.jdesktop.swingx.prompt.PromptSupport;
@@ -22,9 +26,16 @@ public class VentanaInicioSesion extends JFrame implements ActionListener {
     private JTextField usuario;
     private JButton btnAgregarUsuario;
     private JButton btnIngresar;
+    private ManejoDeArchivos manejoDeArchivos = new ManejoDeArchivos();
 
     public VentanaInicioSesion() {
+
+        File data = new File("data");
+        File usuarios = new File("data/usuarios/");
+        File respaldos = new File("data/respaldos/");
+        evaluacionDeDirectorio(data, usuarios, respaldos);
         initComponents();
+
     }
 
     private void initComponents() {
@@ -98,43 +109,94 @@ public class VentanaInicioSesion extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
     }
 
+    /**
+     * Crea las carpetas necesarias para la ejecución correcta del programa.
+     *
+     * @param data
+     * @param usuarios
+     * @param respaldos
+     */
+    private void evaluacionDeDirectorio(File data, File usuarios, File respaldos) {
+        if (!data.exists() && !usuarios.exists() && !respaldos.exists()) {
+            data.mkdirs();
+            usuarios.mkdirs();
+            respaldos.mkdirs();
+        } else if (data.exists() && !usuarios.exists() && !respaldos.exists()) {
+            usuarios.mkdirs();
+            respaldos.mkdirs();
+        } else if (data.exists() && usuarios.exists() && !respaldos.exists()) {
+            respaldos.mkdirs();
+        } else {
+            usuarios.mkdirs();
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (this.btnSalir == e.getSource()) {
             System.exit(0);
+
         } else if (this.btnIngresar == e.getSource()) {
+
             if (usuario.getText().equals("") && contrasenia.getText().equals("")) {
-                System.out.println("campos vacios!!!");
+                JOptionPane.showMessageDialog(null, "Los campos estan vacios", "", JOptionPane.WARNING_MESSAGE);
+
             } else if (usuario.getText().equals("") && !contrasenia.getText().equals("")) {
-                System.out.println("Ingrese usuario");
+                JOptionPane.showMessageDialog(null, "Debe ingresar un usuario", "", JOptionPane.WARNING_MESSAGE);
+
             } else if (!usuario.getText().equals("") && contrasenia.getText().equals("")) {
-                System.out.println("Ingrese contraseña");
-            } else {
-                Usuario user = new Usuario(usuario.getText(), contrasenia.getText());
-                File folder = new File("data/usuarios/"+usuario.getText());
-                if(folder.exists()){
-                    Ventana ventana = new Ventana(new Usuario(usuario.getText(), contrasenia.getText()));
-                    this.setVisible(false);
-                }else{
-                    System.out.println("El usuario no exite!!");
-                } 
+                JOptionPane.showMessageDialog(null, "Debe ingresar la contraseña", "", JOptionPane.WARNING_MESSAGE);
+
+                //si ambos campos se encuentran con valores
+            } else if (!usuario.getText().equals("") && !contrasenia.getText().equals("")) {
+                File folder = new File("data/usuarios/" + usuario.getText());
+                ArrayList<Usuario> infoUsuarios = manejoDeArchivos.recuperarInfoUsuarios(new Archivo("respaldos", "info"));
+                int posicion = encontrarIndice(new Usuario(usuario.getText(), contrasenia.getText()), infoUsuarios);
+                
+                if (posicion != -1) {
+                    String aux = infoUsuarios.get(posicion).getContrasenha();
+                    String aux2 = infoUsuarios.get(posicion).getNombreUsuario();
+                    //si la carpeta existe y ademas si la posicion al menos es cero evaluao la contraseña.
+                    if (folder.exists() && aux.equals(contrasenia.getText()) && aux2.equals(usuario.getText())) {
+                        Ventana ventana = new Ventana(new Usuario(usuario.getText(), contrasenia.getText()));
+                        this.setVisible(false);
+                    } else if (!aux.equals(contrasenia.getText()) && aux2.equals(usuario.getText())) {
+                        JOptionPane.showMessageDialog(null, "La contraseña es incorrecta", "", JOptionPane.WARNING_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "El nombre usuario es incorrecto", "", JOptionPane.WARNING_MESSAGE);
+                }
+
             }
 
-        }else if(this.btnAgregarUsuario == e.getSource()){
+        } else if (this.btnAgregarUsuario == e.getSource()) {
             if (usuario.getText().equals("") && contrasenia.getText().equals("")) {
-                System.out.println("campos vacios!!!");
+                JOptionPane.showMessageDialog(null, "Los campos estan vacios", "", JOptionPane.WARNING_MESSAGE);
+
             } else if (usuario.getText().equals("") && !contrasenia.getText().equals("")) {
-                System.out.println("Ingrese usuario");
+                JOptionPane.showMessageDialog(null, "Debe ingresar un usuario", "", JOptionPane.WARNING_MESSAGE);
+
             } else if (!usuario.getText().equals("") && contrasenia.getText().equals("")) {
-                System.out.println("Ingrese contraseña");
+                JOptionPane.showMessageDialog(null, "Debe ingresar la contraseña", "", JOptionPane.WARNING_MESSAGE);
+
             } else {
-                File folder = new File("data/usuarios/"+usuario.getText());
+                File folder = new File("data/usuarios/" + usuario.getText());
                 folder.mkdirs();
                 Ventana ventana = new Ventana(new Usuario(usuario.getText(), contrasenia.getText()));
-                this.setVisible(false);
+                this.dispose();
             }
         }
 
+    }
+
+    private int encontrarIndice(Usuario usuario, ArrayList<Usuario> usuarios) {
+        int posicion = -1;
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (usuario.compararUsuarios(usuarios.get(i))) {
+                posicion = i;
+            }
+        }
+        return posicion;
     }
 
 }

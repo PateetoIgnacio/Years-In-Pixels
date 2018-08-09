@@ -27,12 +27,25 @@ public class Archivo {
         this.RUTA = "data/" + this.IDENTIFICADOR + "/" +this.USUARIO + "/" + this.N0MBRE + ".bin";
         this.file = new File(this.RUTA);
     }
+
+    public Archivo(String identificador, String nombre){
+        this.USUARIO = "";
+        this.IDENTIFICADOR = identificador;
+        this.N0MBRE = nombre;
+        this.RUTA = this.IDENTIFICADOR + "/" + this.N0MBRE + "/" + ".bin";
+    }
+    
+    public Archivo() {
+        this.IDENTIFICADOR = "";
+        this.USUARIO = "";
+        this.N0MBRE = "";
+        this.RUTA = "data/";
+        this.file = null;
+    }
+   
+    
     public File getFile() {
         return file;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
     }
 
 }

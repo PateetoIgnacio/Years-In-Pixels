@@ -1,5 +1,6 @@
 package Visual;
 
+import Logica.Usuario;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,19 +13,16 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 
 public class VentanaInicioSesion extends JFrame implements ActionListener{
     
-    JLabel fondoLbl;
-    JLabel usuarioLbl;
-    JButton btnSalir;
+    private JLabel fondoLbl;
+    private JLabel usuarioLbl;
+    private JButton btnSalir;
     private JPasswordField contrasenia;
     private JTextField usuario;
-    JButton btnAgregarUsuario;
-    JButton btnIngresar;
-    
-    
+    private JButton btnAgregarUsuario;
+    private JButton btnIngresar;
+       
     public VentanaInicioSesion(){
         initComponents();
-        this.setSize(700, 700);
-        this.setLocationRelativeTo(null);
     }
     
     private void initComponents() {
@@ -36,7 +34,6 @@ public class VentanaInicioSesion extends JFrame implements ActionListener{
         this.btnAgregarUsuario = new JButton();
         this.btnIngresar = new JButton();
         this.fondoLbl = new JLabel();
-        
         
         //Configuraciones del frame
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -95,17 +92,19 @@ public class VentanaInicioSesion extends JFrame implements ActionListener{
         getContentPane().add(this.fondoLbl);
         
         this.setVisible(true);
-        
         pack();
+        this.setSize(700, 700);
+        this.setLocationRelativeTo(null);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (this.btnSalir == e.getSource()){
             System.exit(0);
-        }else if(this.btnIngresar == e.getSource()){
-            Ventana ventana = new Ventana();
-            this.dispose();
+        }else if (this.btnIngresar == e.getSource()){
+            Usuario user = new Usuario(usuario.getText(), contrasenia.getText());
+            Ventana ventana = new Ventana(new Usuario("usuario", "contraseña"));
+            this.setVisible(false);
         }
         
     }

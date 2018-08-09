@@ -20,6 +20,9 @@ public class AnhoEnPixeles {
     private ManejoDeArchivos manejoArchivos;
     private ArrayList<Usuario> usuarios;
     private int idUsuario;
+    private int diasTranscurridos;
+    private int mesesTranscurridos;
+
 
     public AnhoEnPixeles(Usuario usuario) {
         this.controlador = new ControladorDeFecha();
@@ -27,10 +30,11 @@ public class AnhoEnPixeles {
         this.detalles = new ArrayList<>();
         this.manejoArchivos = new ManejoDeArchivos();
         this.usuarios = new ArrayList<>();
-
+        this.diasTranscurridos = controlador.diasTranscurridos(controlador.getFechaActual());
         inicializarArrayUsuario(usuario);
         inicializarOpciones();
         inicializarArrayCalendario();
+
 
     }
 
@@ -85,15 +89,15 @@ public class AnhoEnPixeles {
         } else {
             this.detalles = this.manejoArchivos.recuperarEstados(archivo);
         }
-        //this.registroEstados.forEach(n -> System.out.println(n.toString()));
 
     }
 
     private void inicializarArrayCalendario() {
         Archivo archivoAux = this.usuarios.get(this.idUsuario).getArchivo(TipoDeArchivo.CALENDARIO);
         if (!archivoExiste(archivoAux)) {
-            establecerParametrosDeCalendario();
-            //establecerParametrosRandom();
+            //establecerParametrosDeCalendario(); this.mesesTranscurridos = 0;
+            //establecerParametrosRandom(); this.mesesTranscurridos = 12;
+            establecerParametrosRandomALaFecha(); this.mesesTranscurridos = (int) this.diasTranscurridos / this.DIAS_DEL_MES;
             this.manejoArchivos.guardarEstados(this.registroEstados, archivoAux);
         } else {
             this.registroEstados = this.manejoArchivos.recuperarEstados(archivoAux);
@@ -128,6 +132,23 @@ public class AnhoEnPixeles {
         }
     }
 
+    private void establecerParametrosRandomALaFecha() {
+        Random random = new Random();
+        int posicion = 0, opcion;
+        for (int mes = 0; mes < this.MESES_DEL_ANHO; mes++) {
+            for (int dia = 0; dia < this.DIAS_DEL_MES; dia++) {
+                if (this.controlador.validarFechaPasada(dia + 1, mes + 1)) {
+                    opcion = random.nextInt(6);
+                    this.registroEstados.add(posicion, detalles.get(opcion));
+                } else {
+                    this.registroEstados.add(posicion, detalles.get(5));
+                }
+
+                posicion++;
+            }
+        }
+    }
+
     public int getMESES_DEL_ANHO() {
         return this.MESES_DEL_ANHO;
     }
@@ -153,8 +174,8 @@ public class AnhoEnPixeles {
     }
 
     public EstadoDeAnimo getEstadoEnLaFecha(int dia, int mes) {
-        int diasTranscurridos = calcularDiferencia(dia, mes);
-        return this.registroEstados.get(diasTranscurridos);
+        int transcurrido = calcularDiferencia(dia, mes);
+        return this.registroEstados.get(transcurrido);
     }
 
     private boolean archivoExiste(Archivo archivo) {
@@ -168,6 +189,10 @@ public class AnhoEnPixeles {
 
     public int cantidadDeElementos() {
         return this.registroEstados.size();
+    }
+    
+    public int getMesesTranscurridos(){
+        return this.mesesTranscurridos;
     }
 
 }

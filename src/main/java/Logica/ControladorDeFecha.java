@@ -38,6 +38,14 @@ public class ControladorDeFecha {
 
         return (int) ((fechaFinal.getTime() - fechaInicial.getTime()) / 86400000);
     }
+    public int diasTranscurridos(Date fecha){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date fechaInicial = crearFecha(01, 01);
+        Date fechaFinal = fecha;
+
+        return (int) ((fechaFinal.getTime() - fechaInicial.getTime()) / 86400000);
+    }
 
     private Date crearFecha(int dia, int mes) {
         Calendar auxiliar = Calendar.getInstance();

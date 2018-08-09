@@ -2,7 +2,7 @@ package Utils;
 
 import java.io.File;
 
-public class Archivo {
+public class Archivo implements java.io.Serializable{
 
     private String RUTA;
     private String IDENTIFICADOR;
@@ -32,19 +32,10 @@ public class Archivo {
         this.USUARIO = "";
         this.IDENTIFICADOR = identificador;
         this.N0MBRE = nombre;
-        this.RUTA = this.IDENTIFICADOR + "/" + this.N0MBRE + ".bin";
+        this.RUTA = "data/" + this.IDENTIFICADOR + "/" + this.N0MBRE + ".bin";
         this.file = new File(this.RUTA);
     }
-    
-    public Archivo(String identificador) {
-        this.IDENTIFICADOR = identificador;
-        this.USUARIO = "";
-        this.N0MBRE = "";
-        this.RUTA = "data" + "/" + this.IDENTIFICADOR + "/";
-        this.file = new File(this.RUTA);
-    }
-   
-    
+
     public File getFile() {
         return file;
     }

@@ -15,8 +15,9 @@ public class ManejoDeArchivos {
 
     /**
      * Guarda el ArrayList de estados de animo en el archivo que recibe.
+     *
      * @param estados
-     * @param archivo 
+     * @param archivo
      */
     public void guardarEstados(ArrayList<EstadoDeAnimo> estados, Archivo archivo) {
 
@@ -28,17 +29,20 @@ public class ManejoDeArchivos {
             for (EstadoDeAnimo estado : estados) {
                 oo.writeObject(estado);
             }
+          
 
         } catch (IOException e) {
             e.getMessage();
         }
 
     }
-    
+
     /**
-     * A partir de una archivo .bin el cual se recibe se cargan los datos al ArrayList.
+     * A partir de una archivo .bin el cual se recibe se cargan los datos al
+     * ArrayList.
+     *
      * @param archivo
-     * @return 
+     * @return
      */
     public ArrayList<EstadoDeAnimo> recuperarEstados(Archivo archivo) {
 
@@ -60,7 +64,7 @@ public class ManejoDeArchivos {
                 }
                 aux = oo1.readObject();
             }
-            
+
             // ois.close();
         } catch (EOFException e1) {
             System.out.println("Fin de fichero");
@@ -70,10 +74,12 @@ public class ManejoDeArchivos {
 
         return estados;
     }
+
     /**
      * Guarda el ArrayList de usuario que recibe en el archivo que recibe.
+     *
      * @param usuarios
-     * @param archivo 
+     * @param archivo
      */
     public void almacenarUsuarios(ArrayList<Usuario> usuarios, Archivo archivo) {
 
@@ -82,16 +88,15 @@ public class ManejoDeArchivos {
             FileOutputStream fo = new FileOutputStream(f);
             ObjectOutputStream oo = new ObjectOutputStream(fo);
 
-            for (Object objeto : usuarios) {
-                oo.writeObject(objeto);
+            for (Usuario usuario : usuarios) {
+                oo.writeObject((Object)usuario);
             }
-
+            fo.close();
         } catch (IOException e) {
             e.getMessage();
         }
-
     }
-    
+      
     public ArrayList<Usuario> recuperarInfoUsuarios(Archivo archivo) {
 
         ArrayList<Usuario> usuarios = new ArrayList<>();

@@ -23,9 +23,9 @@ public class AnhoEnPixeles {
 
     public AnhoEnPixeles(Usuario usuario) {
         this.controlador = new ControladorDeFecha();
-        this.manejoArchivos = new ManejoDeArchivos();
         this.registroEstados = new ArrayList<>();
         this.detalles = new ArrayList<>();
+        this.manejoArchivos = new ManejoDeArchivos();
         this.usuarios = new ArrayList<>();
 
         inicializarArrayUsuario(usuario);
@@ -34,54 +34,98 @@ public class AnhoEnPixeles {
 
     }
 
+    /**
+     * Inicializa el ArrayList que contiene los datos de los usuarios, evalua si
+     * el usuario esta o no registrado para ejecutar una u otra cosa.
+     *
+     * @param usuario
+     */
+    private void inicializarArrayUsuario(Usuario usuario) {
+        //si el usuario no estaba registrado, lo ingreso al array
+        if (!usuarioSeEncuentra(usuario)) {
+            //le asigno un identificador el cual usamos para hacerle referencia
+            usuario.setNumIdentificador(this.usuarios.size());
+            //se agrega en el array
+            this.usuarios.add(usuario);
+            //asignamos la identificacion del usuario con el cual se trabajara
+            this.idUsuario = usuario.getNumIdentificador();
+            this.manejoArchivos.almacenarUsuarios(this.usuarios, new Archivo("respaldos", "info"));
+        } else {
+            this.usuarios = this.manejoArchivos.recuperarInfoUsuarios(new Archivo("respaldos", "info"));
+        }
+    }
+
+    private boolean usuarioSeEncuentra(Usuario usuario) {
+        boolean usuarioSeEncuentra = false;
+        for (Usuario usuarioAux : this.usuarios) {
+            //evaluamos si el usuario recibido pertenece al array
+            if (usuarioAux.compararUsuarios(usuario)) {
+                usuarioSeEncuentra = true;
+                //se guarda la posicion en la que se encontraba el usuario
+                this.idUsuario = this.usuarios.indexOf(usuarioAux);
+            }
+        }
+        return usuarioSeEncuentra;
+    }
+
+    /**
+     * Crea el Array con los colores por defecto y de existir uno asigna desde
+     * el archivo.
+     */
     private void inicializarOpciones() {
-        Archivo archivoAux = this.usuarios.get(this.idUsuario).getArchivo(TipoDeArchivo.COLORES_DE_OPCIONES);
-        if (!archivoExiste(archivoAux)) {
+        Archivo archivo = this.usuarios.get(this.idUsuario).getArchivo(TipoDeArchivo.COLORES_DE_OPCIONES);
+        if (!archivoExiste(archivo)) {
             this.detalles.add(new EstadoDeAnimo(TipoDeEstado.ESTADO_1, Color.yellow));
             this.detalles.add(new EstadoDeAnimo(TipoDeEstado.ESTADO_2, Color.green));
             this.detalles.add(new EstadoDeAnimo(TipoDeEstado.ESTADO_3, Color.blue));
             this.detalles.add(new EstadoDeAnimo(TipoDeEstado.ESTADO_4, Color.orange));
             this.detalles.add(new EstadoDeAnimo(TipoDeEstado.ESTADO_5, Color.red));
             this.detalles.add(new EstadoDeAnimo());
-            this.manejoArchivos.guardarEstados(this.detalles, archivoAux);
+            this.manejoArchivos.guardarEstados(this.detalles, archivo);
         } else {
-            this.detalles = this.manejoArchivos.recuperarEstados(archivoAux);
+            this.detalles = this.manejoArchivos.recuperarEstados(archivo);
         }
         //this.registroEstados.forEach(n -> System.out.println(n.toString()));
 
     }
 
-    
-    private void establecerParametrosIniciales() {
+    private void inicializarArrayCalendario() {
+        Archivo archivoAux = this.usuarios.get(this.idUsuario).getArchivo(TipoDeArchivo.CALENDARIO);
+        if (!archivoExiste(archivoAux)) {
+            establecerParametrosDeCalendario();
+            //establecerParametrosRandom();
+            this.manejoArchivos.guardarEstados(this.registroEstados, archivoAux);
+        } else {
+            this.registroEstados = this.manejoArchivos.recuperarEstados(archivoAux);
+        }
+
+    }
+
+    /**
+     * establece los parametros de animos en el calendario para aquel usuario
+     * que ingresa por primera vez.
+     */
+    private void establecerParametrosDeCalendario() {
         EstadoDeAnimo estadoInderminado = new EstadoDeAnimo();
-        int posicion = 0;  
+        int posicion = 0;
         for (int dia = 0; dia < this.DIAS_DEL_MES; dia++) {
             for (int mes = 0; mes < this.MESES_DEL_ANHO; mes++) {
-                if (this.controlador.validarFechaPasada(dia + 1, mes + 1)) {
-                    this.registroEstados.add(posicion, this.detalles.get(this.detalles.size()-1));
-                } else if (this.controlador.validarFechaFutura(dia + 1, mes + 1)) {
-                    this.registroEstados.add(posicion, this.detalles.get(this.detalles.size()-1));
-                } else {
-                    this.registroEstados.add(posicion, this.detalles.get(this.detalles.size()-1));
-                }
+                this.registroEstados.add(estadoInderminado);
                 posicion++;
             }
         }
     }
-    
-    private void inicializarArrayCalendario() {
-        Archivo archivoAux = this.usuarios.get(this.idUsuario).getArchivo(TipoDeArchivo.CALENDARIO);
-        if (!archivoExiste(archivoAux)) {
-            //establecerParametrosIniciales();
-            establecerParametrosRandom();
-            this.manejoArchivos.guardarEstados(this.registroEstados, archivoAux);
-            //this.registroEstados.forEach(n -> System.out.println(n.toString()));
 
-        } else {
-            this.registroEstados = this.manejoArchivos.recuperarEstados(archivoAux);
-            //this.registroEstados.forEach(n -> System.out.println(n.toString()));
+    private void establecerParametrosRandom() {
+        Random random = new Random();
+        int posicion = 0, opcion;
+        for (int dia = 0; dia < this.DIAS_DEL_MES; dia++) {
+            for (int mes = 0; mes < this.MESES_DEL_ANHO; mes++) {
+                opcion = random.nextInt(6);
+                this.registroEstados.add(posicion, detalles.get(opcion));
+                posicion++;
+            }
         }
-
     }
 
     public int getMESES_DEL_ANHO() {
@@ -124,48 +168,6 @@ public class AnhoEnPixeles {
 
     public int cantidadDeElementos() {
         return this.registroEstados.size();
-    }
-
-    private void establecerParametrosRandom() {
-        Random random = new Random();
-        int posicion = 0, opcion;
-        for (int dia = 0; dia < this.DIAS_DEL_MES; dia++) {
-            for (int mes = 0; mes < this.MESES_DEL_ANHO; mes++) {
-                opcion = random.nextInt(6);
-                this.registroEstados.add(posicion, detalles.get(opcion));
-                posicion++;
-            }
-        }
-    }
-
-    private boolean usuarioSeEncuentra(Usuario usuario) {
-        boolean usuarioSeEncuentra = false;
-        for (Usuario usuarioAux : this.usuarios) {
-            //evaluamos si el usuario recibido pertenece al array
-            if (usuarioAux.compararUsuarios(usuario)) {
-                usuarioSeEncuentra = true;
-                //se guarda la posicion en la que se encontraba el usuario
-                this.idUsuario = this.usuarios.indexOf(usuarioAux);
-            }
-        }
-        return usuarioSeEncuentra;
-    }
-
-    private void inicializarArrayUsuario(Usuario usuario) {
-        //si el usuario no estaba registrado, lo ingreso al array
-        if (!usuarioSeEncuentra(usuario)) {
-            //le asigno un identificador el cual usamos para hacerle referencia
-            usuario.setNumIdentificador(this.usuarios.size());
-            //se agrega en el array
-            this.usuarios.add(usuario);
-            //asignamos la identificacion del usuario con el cual se trabajara
-            this.idUsuario = usuario.getNumIdentificador();
-            this.manejoArchivos.almacenarUsuarios(this.usuarios, new Archivo("respaldos", "info"));
-        } else {
-            this.usuarios = this.manejoArchivos.recuperarInfoUsuarios(new Archivo("respaldos", "info"));
-        }
-        this.usuarios.forEach(x -> System.out.println(x.toString()));
-
     }
 
 }

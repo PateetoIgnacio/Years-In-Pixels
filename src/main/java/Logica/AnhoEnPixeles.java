@@ -15,16 +15,14 @@ public class AnhoEnPixeles {
     private final int DIAS_DEL_MES = 31;
     private final int CANTIDAD_DE_ESTADOS = 5;
 
-    private EstadoDeAnimo[] detallesDeLosEstados;
     private ControladorDeFecha controlador;
     private ArrayList<EstadoDeAnimo> registroEstados;
     private ArrayList<EstadoDeAnimo> detalles;
     private ManejoDeArchivos manejoArchivos;
-    private List<Usuario> usuarios;
+    private ArrayList<Usuario> usuarios;
     private int idUsuario;
 
     public AnhoEnPixeles(Usuario usuario) {
-        this.detallesDeLosEstados = new EstadoDeAnimo[this.CANTIDAD_DE_ESTADOS + 1]; //se considera el estado que no esta especificado
         this.controlador = new ControladorDeFecha();
         this.manejoArchivos = new ManejoDeArchivos();
         this.registroEstados = new ArrayList<>();
@@ -46,37 +44,38 @@ public class AnhoEnPixeles {
             this.detalles.add(new EstadoDeAnimo(TipoDeEstado.ESTADO_4, Color.orange));
             this.detalles.add(new EstadoDeAnimo(TipoDeEstado.ESTADO_5, Color.red));
             this.detalles.add(new EstadoDeAnimo());
-            this.manejoArchivos.cargarEstados(this.detalles, archivoAux);
+            this.manejoArchivos.guardarEstados(this.detalles, archivoAux);
         } else {
             this.detalles = this.manejoArchivos.recuperarEstados(archivoAux);
         }
-        this.registroEstados.forEach(n -> System.out.println(n.toString()));
+        //this.registroEstados.forEach(n -> System.out.println(n.toString()));
 
     }
 
     
     private void establecerParametrosIniciales() {
-        int posicion = 0;
+        EstadoDeAnimo estadoInderminado = new EstadoDeAnimo();
+        int posicion = 0;  
         for (int dia = 0; dia < this.DIAS_DEL_MES; dia++) {
             for (int mes = 0; mes < this.MESES_DEL_ANHO; mes++) {
                 if (this.controlador.validarFechaPasada(dia + 1, mes + 1)) {
-                    this.registroEstados.add(posicion, this.detallesDeLosEstados[5]);
+                    this.registroEstados.add(posicion, this.detalles.get(this.detalles.size()-1));
                 } else if (this.controlador.validarFechaFutura(dia + 1, mes + 1)) {
-                    this.registroEstados.add(posicion, this.detallesDeLosEstados[5]);
+                    this.registroEstados.add(posicion, this.detalles.get(this.detalles.size()-1));
                 } else {
-                    this.registroEstados.add(posicion, this.detallesDeLosEstados[5]);
+                    this.registroEstados.add(posicion, this.detalles.get(this.detalles.size()-1));
                 }
                 posicion++;
             }
         }
     }
-     
+    
     private void inicializarArrayCalendario() {
         Archivo archivoAux = this.usuarios.get(this.idUsuario).getArchivo(TipoDeArchivo.CALENDARIO);
         if (!archivoExiste(archivoAux)) {
             //establecerParametrosIniciales();
             establecerParametrosRandom();
-            this.manejoArchivos.cargarEstados(this.registroEstados, archivoAux);
+            this.manejoArchivos.guardarEstados(this.registroEstados, archivoAux);
             //this.registroEstados.forEach(n -> System.out.println(n.toString()));
 
         } else {
@@ -98,8 +97,8 @@ public class AnhoEnPixeles {
         return this.CANTIDAD_DE_ESTADOS;
     }
 
-    public EstadoDeAnimo[] getOpcionesDeEstados() {
-        return this.detallesDeLosEstados;
+    public ArrayList<EstadoDeAnimo> getOpcionesDeEstados() {
+        return this.detalles;
     }
 
     public EstadoDeAnimo getEstado(int indice) {
@@ -154,9 +153,6 @@ public class AnhoEnPixeles {
     }
 
     private void inicializarArrayUsuario(Usuario usuario) {
-        //Usuario prueba = new Usuario("usuario", "contraseña");
-        //this.usuarios.add(prueba);
-
         //si el usuario no estaba registrado, lo ingreso al array
         if (!usuarioSeEncuentra(usuario)) {
             //le asigno un identificador el cual usamos para hacerle referencia
@@ -165,12 +161,10 @@ public class AnhoEnPixeles {
             this.usuarios.add(usuario);
             //asignamos la identificacion del usuario con el cual se trabajara
             this.idUsuario = usuario.getNumIdentificador();
+            this.manejoArchivos.almacenarUsuarios(this.usuarios, new Archivo("respaldos", "info"));
         } else {
-
-            //falta programar!!!
-            System.out.println("el usuario se encontraba!");
+            this.usuarios = this.manejoArchivos.recuperarInfoUsuarios(new Archivo("respaldos", "info"));
         }
-
         this.usuarios.forEach(x -> System.out.println(x.toString()));
 
     }

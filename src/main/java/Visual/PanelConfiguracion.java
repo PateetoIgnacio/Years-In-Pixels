@@ -33,7 +33,7 @@ public class PanelConfiguracion extends JPanel {
         this.add(label, c);
 
         for (int fila = 0; fila < 2; fila++) {
-            for (int columna = 1; columna <= 3; columna++) {
+            for (int columna = 1; columna <= 2; columna++) {
                 switch (fila) {
                     case 0:
                         initButton(columna, c);
@@ -90,10 +90,6 @@ public class PanelConfiguracion extends JPanel {
                 boton.setText("Colores");
                 setListenerColores(boton);
                 break;
-            case 2:
-                boton.setText("Notificaciones");
-                setListenerNotificaciones(boton);
-                break;
             default:
                 boton.setText("Fondo");
                 setListenerFondo(boton);
@@ -109,9 +105,6 @@ public class PanelConfiguracion extends JPanel {
             case 0:
                 texto = "Cambia los colores de tus emoticones";
                 break;
-            case 1:
-                texto = "Activa/Desactiva, cambia la hora del recordatorio";
-                break;
             default:
                 texto = "Se siente vacío un fondo blanco, ¿no?";
                 break;
@@ -122,14 +115,6 @@ public class PanelConfiguracion extends JPanel {
     }
 
     private void setListenerColores(JButton boton) {
-        boton.addActionListener(
-                (ActionEvent e) -> {
-                    System.out.println("presionaste un botón");
-                }
-        );
-    }
-    
-    private void setListenerNotificaciones(JButton boton) {
         boton.addActionListener(
                 (ActionEvent e) -> {
                     System.out.println("presionaste un botón");

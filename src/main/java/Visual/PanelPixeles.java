@@ -1,8 +1,8 @@
 package Visual;
 
+import Logica.ControladorDeFecha;
 import Logica.EstadoDeAnimo;
 import Logica.TipoDeEstado;
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
@@ -32,12 +32,12 @@ public class PanelPixeles extends JPanel {
                 if (dia > 0 && mes > 0) {
                     JButton boton = crearBoton();
                     EstadoDeAnimo estado = ventana.getAnhoEnPixeles().getEstadoEnLaFecha(dia, mes);
-                    System.out.println(posicion + ": "+estado.toString());
                     boton.setBackground(estado.getColor());
-                    if(estado.getTipo() == TipoDeEstado.SIN_ESPECIFICAR) {
+                    ControladorDeFecha control = new ControladorDeFecha();
+                    if(estado.getTipo() == TipoDeEstado.SIN_ESPECIFICAR || !control.validarFechaFutura(dia+1, mes)) {
                         boton.setEnabled(false);
                     }
-                    setListener(boton);
+                    setListener(boton, ventana);
                     this.add(boton);
                     posicion++;
                 }
@@ -64,10 +64,10 @@ public class PanelPixeles extends JPanel {
 
     }
 
-    private void setListener(JButton boton) {
+    private void setListener(JButton boton, Ventana v) {
         boton.addActionListener(
                 (ActionEvent e) -> {
-                    DialogOpcionActualizar dialogo = new DialogOpcionActualizar(null, true, boton);
+                    DialogOpcionActualizar dialogo = new DialogOpcionActualizar(v, true, boton);
                     dialogo.setVisible(true);
                 }
         );

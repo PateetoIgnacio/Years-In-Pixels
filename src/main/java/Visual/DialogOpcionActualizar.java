@@ -1,5 +1,6 @@
 package Visual;
 
+import Logica.EstadoDeAnimo;
 import java.awt.Frame;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -9,22 +10,29 @@ import java.awt.event.ActionEvent;
 
 public class DialogOpcionActualizar extends JDialog {
 
-    private final int TAMANHO_BOTON = 60;
+    private final int TAMANHO_BOTON = 50;
 
-    public DialogOpcionActualizar(Frame frame, boolean modal, JButton botonCalendario) {
-        super(frame, modal);
-        initComponents(botonCalendario);
+    public DialogOpcionActualizar(Ventana ventana, boolean modal, JButton botonCalendario) {
+        super(ventana, modal);
+        initComponents(ventana, botonCalendario);
     }
 
-    private void initComponents(JButton botonCalendario) {
+    private void initComponents(Ventana ventana, JButton botonCalendario) {
         this.setTitle("Escoge un color");
         this.setLocationRelativeTo(null);
         this.setSize(this.TAMANHO_BOTON * 5, this.TAMANHO_BOTON + 20);
-        initButtons(botonCalendario);
+        initButtons(ventana, botonCalendario);
     }
 
-    private void initButtons(JButton botonCalendario) {
-        Color[] arregloColores = {Color.yellow, Color.green, Color.blue, Color.orange, Color.red};
+    private void initButtons(Ventana ventana, JButton botonCalendario) {
+        EstadoDeAnimo estado1 = ventana.getAnhoEnPixeles().getEstado(0);
+        EstadoDeAnimo estado2 = ventana.getAnhoEnPixeles().getEstado(1);
+        EstadoDeAnimo estado3 = ventana.getAnhoEnPixeles().getEstado(2);
+        EstadoDeAnimo estado4 = ventana.getAnhoEnPixeles().getEstado(3);
+        EstadoDeAnimo estado5 = ventana.getAnhoEnPixeles().getEstado(4);
+        
+        Color[] arregloColores = {estado1.getColor(), estado2.getColor(), 
+            estado3.getColor(), estado4.getColor(), estado5.getColor()};
         for (int i = 0; i < arregloColores.length; i++) {
             Container orden = getContentPane();
             orden.setLayout(null);

@@ -39,7 +39,7 @@ public class Ventana extends JFrame {
         pestanhas.addTab("Calendario", this.panelPixeles);
         
         //Creamos el panel de Grafico y se adiciona al conjunto
-        this.panelOpcionesDeGrafico = new PanelOpcionesDeGrafico(this.getAnhoEnPixeles().getCANTIDAD_DE_ESTADOS());
+        this.panelOpcionesDeGrafico = new PanelOpcionesDeGrafico(this.getAnhoEnPixeles().getCANTIDAD_DE_ESTADOS(), this.anhoEnPixeles);
         this.panelOpcionesDeGrafico.setBackground(Color.WHITE);
         pestanhas.addTab("Gráfico", this.panelOpcionesDeGrafico);
         

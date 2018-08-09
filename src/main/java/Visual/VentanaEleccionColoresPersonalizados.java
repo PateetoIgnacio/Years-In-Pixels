@@ -23,8 +23,6 @@ public class VentanaEleccionColoresPersonalizados extends JFrame implements Acti
 
     public VentanaEleccionColoresPersonalizados() {
         initComponents();
-        this.setSize(405, 400);
-        this.setLocationRelativeTo(null);
     }
     
     private void initComponents(){
@@ -83,7 +81,8 @@ public class VentanaEleccionColoresPersonalizados extends JFrame implements Acti
         getContentPane().add(this.btnCancelar);
         
         this.setVisible(true);
-        
+        this.setSize(405, 400);
+        this.setLocationRelativeTo(null);
         pack();
     }
 

@@ -1,5 +1,6 @@
 package Visual;
 
+import Logica.AnhoEnPixeles;
 import java.awt.ComponentOrientation;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -13,18 +14,19 @@ import javax.swing.JPanel;
 public class PanelOpcionesDeGrafico extends JPanel {
 
     private String[] nombreMeses = {
-        "Enero", "Febrero", "Marzo", "Abril","Mayo", "Junio",
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
         "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
     };
     private JButton meses[];
 
     /* se guardaran la cantidad de veces un estado fue escogido (dato mensual) */
     private int[] datosPrueba;
-    private final int mesesValidos = 5;
+    private int mesesValidos;
 
-    public PanelOpcionesDeGrafico(int cantidad) {
+    public PanelOpcionesDeGrafico(int cantidad, AnhoEnPixeles anhoEnPixeles) {
         this.datosPrueba = new int[cantidad];
-        this.meses = new JButton[this.nombreMeses.length];
+        this.mesesValidos = anhoEnPixeles.getMesesTranscurridos();
+        this.meses = new JButton[12];
         inicializarArreglo();
         initComponents();
     }
@@ -68,7 +70,7 @@ public class PanelOpcionesDeGrafico extends JPanel {
     }
 
     private void inicializarArreglo() {
-        for (int i = 0; i < this.nombreMeses.length; i++) {
+        for (int i = 0; i < 12; i++) {
             this.meses[i] = new JButton(nombreMeses[i]);
             setListener(this.meses[i], this.nombreMeses[i]);
         }
@@ -78,7 +80,9 @@ public class PanelOpcionesDeGrafico extends JPanel {
         boton.addActionListener(
                 (ActionEvent e) -> {
                     generarDatosRandom(this.datosPrueba.length);
-                    PanelRepresentacionGrafico rep = new PanelRepresentacionGrafico(this.datosPrueba, mes);
+                    if (this.mesesValidos > 1) {
+                        PanelRepresentacionGrafico rep = new PanelRepresentacionGrafico(this.datosPrueba, mes);
+                    }
                 }
         );
     }
@@ -96,7 +100,7 @@ public class PanelOpcionesDeGrafico extends JPanel {
             /* numeros arbitrarios mas que nada para probar los graficos 
                evidentemente no se ajustan a las posibilidades reales 
              */
-            this.datosPrueba[i] = random.nextInt(11 + 1) + 1;
+            this.datosPrueba[i] = random.nextInt(10 + 1) + 1;
         }
     }
 }

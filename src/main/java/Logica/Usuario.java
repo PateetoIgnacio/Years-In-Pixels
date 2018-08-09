@@ -5,7 +5,7 @@ import Utils.Archivo;
 import Utils.TipoDeArchivo;
 import java.util.Objects;
 
-public class Usuario {
+public class Usuario implements java.io.Serializable{
     
     private String nombreUsuario;
     private String contrasenha;

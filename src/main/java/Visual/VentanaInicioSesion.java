@@ -102,6 +102,7 @@ public class VentanaInicioSesion extends JFrame implements ActionListener{
         if (this.btnSalir == e.getSource()){
             System.exit(0);
         }else if (this.btnIngresar == e.getSource()){
+            Usuario user = new Usuario(usuario.getText(), contrasenia.getText());
             Ventana ventana = new Ventana(new Usuario("usuario", "contraseña"));
             this.setVisible(false);
         }

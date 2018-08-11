@@ -85,7 +85,10 @@ public class VentanaInicioSesion extends JFrame implements ActionListener {
         this.btnIngresar.setBorder(null);
         this.btnIngresar.setContentAreaFilled(false);
         this.btnIngresar.addActionListener(this);
-        this.btnIngresar.setToolTipText("Iniciar sesión");
+        this.btnIngresar.setToolTipText("Iniciar sesión"
+                + "    si deseas visualizar datos aleatorios ingresa: "
+                + "Usuario: aleatorio "
+                + "- Contraseña: aleatorio");
         this.btnIngresar.setBounds(390, 590, 50, 40);
         getContentPane().add(this.btnIngresar);
 
@@ -152,22 +155,26 @@ public class VentanaInicioSesion extends JFrame implements ActionListener {
             } else if (!usuario.getText().equals("") && !contrasenia.getText().equals("")) {
                 File folder = new File("data/usuarios/" + usuario.getText());
                 ArrayList<Usuario> infoUsuarios = manejoDeArchivos.recuperarInfoUsuarios(new Archivo("respaldos", "info"));
-                int posicion = encontrarIndice(new Usuario(usuario.getText(), contrasenia.getText()), infoUsuarios);
-                
-                if (posicion != -1) {
-                    String aux = infoUsuarios.get(posicion).getContrasenha();
-                    String aux2 = infoUsuarios.get(posicion).getNombreUsuario();
-                    //si la carpeta existe y ademas si la posicion al menos es cero evaluao la contraseña.
-                    if (folder.exists() && aux.equals(contrasenia.getText()) && aux2.equals(usuario.getText())) {
-                        Ventana ventana = new Ventana(new Usuario(usuario.getText(), contrasenia.getText()));
-                        this.setVisible(false);
-                    } else if (!aux.equals(contrasenia.getText()) && aux2.equals(usuario.getText())) {
+                Usuario pretendido = usuarioQueSePretendeIngresar(infoUsuarios, usuario.getText());
+                boolean seEncuentraRegistrado = usuarioSeEncuentraRegistrado(infoUsuarios, usuario.getText());
+
+                //Existe la carpeta y ademas el usuario se encuentra registrado en los respaldos
+                if (folder.exists() && seEncuentraRegistrado) {
+                    if (evaluarContrasenhaIngresada(pretendido.getContrasenha(), contrasenia.getText())) {
+                        Ventana ventana = new Ventana(new Usuario(usuario.getText(), contrasenia.getText()), this);
+                        this.dispose();
+                    } else {
                         JOptionPane.showMessageDialog(null, "La contraseña es incorrecta", "", JOptionPane.WARNING_MESSAGE);
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "El nombre usuario es incorrecto", "", JOptionPane.WARNING_MESSAGE);
+                } else if (!folder.exists() && seEncuentraRegistrado) {
+                    folder.mkdirs();
+                    JOptionPane.showMessageDialog(null, "Lamentamos informarte que los datos para el usuario " + usuario.getText() + " fueron eliminados, se iniciaran los datos desde cero.", "", JOptionPane.WARNING_MESSAGE);
+                    borrarRegistroDeUsuario(infoUsuarios, pretendido);
+                    manejoDeArchivos.recuperarInfoUsuarios(new Archivo("respaldos", "info"));
+                    Ventana ventana = new Ventana(new Usuario(usuario.getText(), contrasenia.getText()), this);
+                } else if (!folder.exists() && !seEncuentraRegistrado) {
+                    JOptionPane.showMessageDialog(null, "Nombre de usuario o contraseña incorrecto", "", JOptionPane.WARNING_MESSAGE);
                 }
-
             }
 
         } else if (this.btnAgregarUsuario == e.getSource()) {
@@ -182,22 +189,55 @@ public class VentanaInicioSesion extends JFrame implements ActionListener {
 
             } else {
                 File folder = new File("data/usuarios/" + usuario.getText());
-                folder.mkdirs();
-                Ventana ventana = new Ventana(new Usuario(usuario.getText(), contrasenia.getText()));
-                this.dispose();
+                ArrayList<Usuario> infoUsuarios = manejoDeArchivos.recuperarInfoUsuarios(new Archivo("respaldos", "info"));
+                boolean seEncuentraRegistrado = usuarioSeEncuentraRegistrado(infoUsuarios, usuario.getText());
+
+                if (seEncuentraRegistrado) {
+                    JOptionPane.showMessageDialog(null, "El usuario ya se encuentra registrado, intenta con otro nombre", "", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    folder.mkdirs();
+                    Ventana ventana = new Ventana(new Usuario(usuario.getText(), contrasenia.getText()), this);
+                    this.dispose();
+                }
+
+                
             }
         }
 
     }
 
-    private int encontrarIndice(Usuario usuario, ArrayList<Usuario> usuarios) {
-        int posicion = -1;
-        for (int i = 0; i < usuarios.size(); i++) {
-            if (usuario.compararUsuarios(usuarios.get(i))) {
-                posicion = i;
+    private Usuario usuarioQueSePretendeIngresar(ArrayList<Usuario> infoUsuarios, String nombre) {
+        Usuario usuario = null;
+        for (int posicion = 0; posicion < infoUsuarios.size(); posicion++) {
+            if (infoUsuarios.get(posicion).getNombreUsuario().equals(nombre)) {
+                usuario = infoUsuarios.get(posicion);
+                posicion = infoUsuarios.size();
             }
         }
-        return posicion;
+        return usuario;
+    }
+
+    private boolean usuarioSeEncuentraRegistrado(ArrayList<Usuario> infoUsuarios, String nombre) {
+        boolean respuesta = false;
+        for (int posicion = 0; posicion < infoUsuarios.size(); posicion++) {
+            if (infoUsuarios.get(posicion).getNombreUsuario().equals(nombre)) {
+                respuesta = true;
+                posicion = infoUsuarios.size();
+            }
+        }
+        return respuesta;
+    }
+
+    private boolean evaluarContrasenhaIngresada(String contrasenhaRegistrada, String contrasenhaIngresada) {
+        return contrasenhaRegistrada.equals(contrasenhaIngresada);
+    }
+
+    private void borrarRegistroDeUsuario(ArrayList<Usuario> infoUsuarios, Usuario usuario) {
+        for (int posicion = 0; posicion < infoUsuarios.size(); posicion++) {
+            if (usuario.compararUsuarios(infoUsuarios.get(posicion))) {
+                infoUsuarios.remove(posicion);
+            }
+        }
     }
 
 }

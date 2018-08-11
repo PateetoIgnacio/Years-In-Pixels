@@ -8,23 +8,23 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class PanelRepresentacionGrafico {
 
-    public PanelRepresentacionGrafico(int datos[], String mes) {
-        initComponents(datos, mes);
+    public PanelRepresentacionGrafico(int datos[][], String nombreMes, int numMes) {
+        initComponents(datos, nombreMes, numMes);
     }
 
-    private void initComponents(int datos[], String mes) {
+    private void initComponents(int datos[][] , String nombreMes, int numMes) {
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(datos[0], "feliz", "feliz");
-        dataset.addValue(datos[1], "promedio", "promedio");
-        dataset.addValue(datos[2], "cansado", "cansado");
-        dataset.addValue(datos[3], "triste", "triste");
-        dataset.addValue(datos[4], "enojado", "enojado");
+        dataset.addValue(datos[numMes][0], "feliz", "feliz");
+        dataset.addValue(datos[numMes][1], "promedio", "promedio");
+        dataset.addValue(datos[numMes][2], "cansado", "cansado");
+        dataset.addValue(datos[numMes][3], "triste", "triste");
+        dataset.addValue(datos[numMes][4], "enojado", "enojado");
 
-        JFreeChart jf = ChartFactory.createBarChart3D("Datos de " + mes, "Estados de animo",
+        JFreeChart jf = ChartFactory.createBarChart3D("Datos de " + nombreMes, "Estados de animo",
                 "Repeticiones", dataset, PlotOrientation.VERTICAL, true, true, true);
 
-        ChartFrame f = new ChartFrame(mes, jf);
+        ChartFrame f = new ChartFrame(nombreMes, jf);
         f.setSize(800, 600);
         f.setResizable(false);
         f.setLocationRelativeTo(null);

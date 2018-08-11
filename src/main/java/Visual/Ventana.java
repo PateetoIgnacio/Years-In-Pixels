@@ -17,7 +17,7 @@ public class Ventana extends JFrame {
     private PanelOpcionesDeGrafico panelOpcionesDeGrafico;
     private PanelConfiguracion panelConfiguracion;
 
-    public Ventana(Usuario usuario){
+    public Ventana(Usuario usuario, VentanaInicioSesion inicio){
         initComponents(usuario);
     }
 
@@ -39,7 +39,7 @@ public class Ventana extends JFrame {
         pestanhas.addTab("Calendario", this.panelPixeles);
         
         //Creamos el panel de Grafico y se adiciona al conjunto
-        this.panelOpcionesDeGrafico = new PanelOpcionesDeGrafico(this.getAnhoEnPixeles().getCANTIDAD_DE_ESTADOS(), this.anhoEnPixeles);
+        this.panelOpcionesDeGrafico = new PanelOpcionesDeGrafico(this);
         this.panelOpcionesDeGrafico.setBackground(Color.WHITE);
         pestanhas.addTab("Gráfico", this.panelOpcionesDeGrafico);
         
@@ -58,7 +58,6 @@ public class Ventana extends JFrame {
         this.setSize(new Dimension(this.MEDIDA_EN_X, this.MEDIDA_EN_Y));
         this.setResizable(false);
         this.setVisible(true);
-
 
     }
 

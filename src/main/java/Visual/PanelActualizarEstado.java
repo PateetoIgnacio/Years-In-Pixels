@@ -8,8 +8,14 @@ public class PanelActualizarEstado extends JPanel {
 
     private final int TAMANHO_BOTON = 50;
     private JButton[] botonesDeColor;
+    
+    public String rutaNueva;
+    public final String RUTAPREDETERMINADA = "src/main/resources/fondoPanel.jpg";
+    public Image fondo;
 
     public PanelActualizarEstado(Ventana ventana) {
+        this.rutaNueva = null;
+        pintarComienzo();
         initComponents(ventana);
     }
 
@@ -57,7 +63,7 @@ public class PanelActualizarEstado extends JPanel {
                         this.add(this.botonesDeColor[opcion], c);
                         break;
                     case 1:
-                        c.anchor = GridBagConstraints.LINE_START;
+                        c.anchor = GridBagConstraints.CENTER;
                         JLabel label = crearLabelOpcion(opcion);
                         this.add(label, c);
                         break;
@@ -79,7 +85,24 @@ public class PanelActualizarEstado extends JPanel {
     
     private JButton crearBoton(Ventana v, int indice) {
         JButton boton = new JButton();
-        boton.setBackground(v.getAnhoEnPixeles().getEstado(indice).getColor());
+        boton.setBackground(v.getAnhoEnPixeles().getDetalleEstado(indice).getColor());
+        switch (indice){
+            case 0:
+                boton.setToolTipText("Vivo, activo, feliz, energético, motivado, productivo");
+                break;
+            case 1:
+                boton.setToolTipText("Sin eventos, promedio, normal");
+                break;
+            case 2:
+                boton.setToolTipText("Enfermo, cansando, desmotivado, aburrido, perezoso");
+                break;
+            case 3:
+                boton.setToolTipText("Triste, solitario, deprimido, inseguro, deprimido");
+                break;
+            case 4:
+                boton.setToolTipText("Enojado, frustrado, irritable, molesto, gruñón");
+                break;
+        }
         boton.setSize(new Dimension(this.TAMANHO_BOTON, this.TAMANHO_BOTON));
         return boton;
     }
@@ -89,23 +112,26 @@ public class PanelActualizarEstado extends JPanel {
         String texto;
         switch (opcion) {
             case 0:
-                texto = "Vivo. activo. feliz. energético. motivado. productivo";
+                label.setIcon(new ImageIcon(getClass().getResource("/feliz.png")));
+                label.setToolTipText("Vivo, activo, feliz, energético, motivado, productivo");
                 break;
             case 1:
-                texto = "Sin eventos. promedio. normal";
+                label.setIcon(new ImageIcon(getClass().getResource("/normal.png")));
+                label.setToolTipText("Sin eventos, promedio, normal");
                 break;
             case 2:
-                texto = "Enfermo. cansando. desmotivado. aburrido. perezoso";
+                label.setIcon(new ImageIcon(getClass().getResource("/enfermo.png")));
+                label.setToolTipText("Enfermo, cansando, desmotivado, aburrido, perezoso");
                 break;
             case 3:
-                texto = "Triste. solitario. deprimido. inseguro. deprimido";
+                label.setIcon(new ImageIcon(getClass().getResource("/triste.png")));
+                label.setToolTipText("Triste, solitario, deprimido, inseguro, deprimido");
                 break;
             default:
-                texto = "Enojado. frustrado. irritable. molesto. gruñón";
+                label.setIcon(new ImageIcon(getClass().getResource("/enojado.png")));
+                label.setToolTipText("Enojado, frustrado, irritable, molesto, gruñón");
                 break;
         }
-        label.setText(texto);
-        label.setFont(new Font("Noteworthy", 0, 17));
         return label;
     }
 
@@ -116,6 +142,19 @@ public class PanelActualizarEstado extends JPanel {
                 }
         );
     }
-
+    private void pintarComienzo(){
+        if(this.rutaNueva == null){
+            this.rutaNueva = this.RUTAPREDETERMINADA;
+        }else
+            this.updateUI();
+    }
+    
+    @Override
+    public void paint(Graphics g){
+        this.fondo = new ImageIcon(this.rutaNueva).getImage();
+        g.drawImage(this.fondo, 0, 0, this.getWidth(), this.getHeight(), this);
+        this.setOpaque(false);
+        super.paint(g);
+    }
 
 }

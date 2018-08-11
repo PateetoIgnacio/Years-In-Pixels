@@ -2,22 +2,32 @@ package Visual;
 
 import java.awt.ComponentOrientation;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class PanelConfiguracion extends JPanel {
+
     public JButton btnAjustarColores;
-    public JButton btnAjustarNotificacion;
     public JButton btnEditarFondo;
     public JButton btnColores;
-    public JButton btnNotificaciones;
     public JButton btnFondo;
 
+    public String rutaNueva;
+    public final String RUTAPREDETERMINADA = "src/main/resources/fondoPanel.jpg";
+    public Image fondo;
+
     public PanelConfiguracion(Ventana ventana) {
+        this.rutaNueva = null;
+        pintarComienzo();
         initComponents(ventana);
     }
 
@@ -33,10 +43,10 @@ public class PanelConfiguracion extends JPanel {
         this.add(label, c);
 
         for (int fila = 0; fila < 2; fila++) {
-            for (int columna = 1; columna <= 2; columna++) {
+            for (int columna = 1; columna < 3; columna++) {
                 switch (fila) {
                     case 0:
-                        initButton(columna, c);
+                        initButton(columna, c, ventana);
                         break;
                     default:
                         label = crearLabelOpciones(columna - 1);
@@ -73,7 +83,7 @@ public class PanelConfiguracion extends JPanel {
         return c;
     }
 
-    private void initButton(int opcion, GridBagConstraints c) {
+    private void initButton(int opcion, GridBagConstraints c, Ventana ventana) {
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.CENTER;
         c.gridx = 0;
@@ -88,10 +98,12 @@ public class PanelConfiguracion extends JPanel {
         switch (opcion) {
             case 1:
                 boton.setText("Colores");
-                setListenerColores(boton);
+                boton.setToolTipText("Cambia los colores de tus emoticones");
+                setListenerColores(boton, ventana);
                 break;
-            default:
+            case 2:
                 boton.setText("Fondo");
+                boton.setToolTipText("Cambiar la imagen del fondo");
                 setListenerFondo(boton);
                 break;
         }
@@ -106,7 +118,7 @@ public class PanelConfiguracion extends JPanel {
                 texto = "Cambia los colores de tus emoticones";
                 break;
             default:
-                texto = "Se siente vacío un fondo blanco, ¿no?";
+                texto = "Cambiar la imagen del fondo";
                 break;
         }
         jLabel.setText(texto);
@@ -114,21 +126,50 @@ public class PanelConfiguracion extends JPanel {
         return jLabel;
     }
 
-    private void setListenerColores(JButton boton) {
+    private void pintarComienzo() {
+        if (this.rutaNueva == null) {
+            this.rutaNueva = this.RUTAPREDETERMINADA;
+        } else {
+            this.updateUI();
+        }
+    }
+    
+    private void pintarPanel(String ruta){
+        this.rutaNueva = ruta;
+        this.updateUI();
+    }
+    
+    public void paint(Graphics g) {
+        this.fondo = new ImageIcon(this.rutaNueva).getImage();
+        g.drawImage(this.fondo, 0, 0, this.getWidth(), this.getHeight(), this);
+        this.setOpaque(false);
+        super.paint(g);
+    }
+
+    private void setListenerColores(JButton boton, Ventana ventana) {
         boton.addActionListener(
                 (ActionEvent e) -> {
-                    System.out.println("presionaste un botón");
+                    VentanaEleccionColoresPersonalizados vEleccColores = new VentanaEleccionColoresPersonalizados(ventana);
+                    vEleccColores.setVisible(true);
                 }
         );
     }
-    
+
     private void setListenerFondo(JButton boton) {
         boton.addActionListener(
                 (ActionEvent e) -> {
-                    System.out.println("presionaste un botón");
+                    buscarImagen();
                 }
         );
     }
     
-
+    private void buscarImagen(){
+        JFileChooser jFileC = new JFileChooser();
+        jFileC.showOpenDialog(this);
+        File archivo = jFileC.getSelectedFile();
+        if(archivo != null){
+            this.rutaNueva = archivo.getAbsolutePath();
+            pintarPanel(this.rutaNueva);
+        }
+    }
 }

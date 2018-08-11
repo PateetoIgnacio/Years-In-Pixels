@@ -190,7 +190,20 @@ public class AnhoEnPixeles {
     public void actualizarCambioEnEstado(EstadoDeAnimo estado, int posicion) {
         this.registroEstados.get(posicion).setCambio(estado);
     }
+    
+    private boolean archivoExiste(Archivo archivo) {
+        File file = archivo.getFile();
+        return file.exists();
+    }
+    
+    private int calcularDiferencia(int dia, int mes) {
+        return this.controlador.diasTranscurridos(dia, mes);
+    }
 
+    public int cantidadDeElementos() {
+        return this.registroEstados.size();
+    }
+    
     public int getMESES_DEL_ANHO() {
         return this.MESES_DEL_ANHO;
     }
@@ -224,19 +237,6 @@ public class AnhoEnPixeles {
         return this.registroEstados.get(transcurrido);
     }
 
-    private boolean archivoExiste(Archivo archivo) {
-        File file = archivo.getFile();
-        return file.exists();
-    }
-
-    private int calcularDiferencia(int dia, int mes) {
-        return this.controlador.diasTranscurridos(dia, mes);
-    }
-
-    public int cantidadDeElementos() {
-        return this.registroEstados.size();
-    }
-
     public int getMesesTranscurridos() {
         return this.mesesTranscurridos;
     }
@@ -251,7 +251,6 @@ public class AnhoEnPixeles {
 
     public int getIndiceUsuarioRepresentado() {
         return this.idUsuario;
-    }
-    
+    }    
 
 }

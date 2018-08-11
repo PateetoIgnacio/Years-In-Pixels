@@ -37,11 +37,5 @@ public class EstadoDeAnimo implements Serializable{
         this.tipo = estado.getTipo();
         this.color = estado.getColor();
     }
-
-    @Override
-    public String toString() {
-        return "EstadoDeAnimo{" + "tipo=" + tipo + ", color=" + color + '}';
-    }
     
-
 }

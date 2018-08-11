@@ -137,20 +137,7 @@ public class Usuario implements java.io.Serializable {
             cantidades[3] = 0;
             cantidades[4] = 0;
         }
-        
-        printEstadisticas();
-
         return this.estadisticasMensuales;
-    }
-
-    private void printEstadisticas() {
-        for (int i = 0; i < 12; i++) {
-            System.out.print("mes numero "+(i+1)+": ");
-            for (int j = 0; j < 5; j++) {
-                System.out.print(this.estadisticasMensuales[i][j] + " ");
-            }
-            System.out.println("");
-        }
     }
 
     public int[][] getEstadisticasMensuales() {

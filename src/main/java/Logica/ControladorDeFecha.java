@@ -17,45 +17,42 @@ public class ControladorDeFecha {
     public Date getFechaActual() {
         return this.fechaActual;
     }
-
+    
     public boolean validarFechaPasada(int dia, int mes) {
-        return (getFechaActual().after(crearFecha(dia, mes)));
+        return (getFechaActual().after(crearFechaDia(dia, mes)));
     }
 
     public boolean validarFechaFutura(int dia, int mes) {
-        return (getFechaActual().before(crearFecha(dia, mes)));
+        return (getFechaActual().before(crearFechaDia(dia, mes)));
     }
 
     public boolean validarFechaActual(int dia, int mes) {
-        return (getFechaActual().equals(crearFecha(dia, mes)));
+        return (getFechaActual().equals(crearFechaDia(dia, mes)));
     }
 
     public int diasTranscurridos(int dia, int mes) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        Date fechaInicial = crearFecha(01, 01);
-        Date fechaFinal = crearFecha(dia, mes);
+        Date fechaInicial = crearFechaDia(01, 01);
+        Date fechaFinal = crearFechaDia(dia, mes);
 
         return (int) ((fechaFinal.getTime() - fechaInicial.getTime()) / 86400000);
     }
     public int diasTranscurridos(Date fecha){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        Date fechaInicial = crearFecha(01, 01);
+        Date fechaInicial = crearFechaDia(01, 01);
         Date fechaFinal = fecha;
 
         return (int) ((fechaFinal.getTime() - fechaInicial.getTime()) / 86400000);
     }
 
-    private Date crearFecha(int dia, int mes) {
+    private Date crearFechaDia(int dia, int mes) {
         Calendar auxiliar = Calendar.getInstance();
         auxiliar.set(Calendar.YEAR, 2018);
         auxiliar.set(Calendar.MONTH, mes - 1);
         auxiliar.set(Calendar.DAY_OF_MONTH, dia);
-        auxiliar.set(Calendar.HOUR_OF_DAY, 0);
-        auxiliar.set(Calendar.MINUTE, 0);
-        auxiliar.set(Calendar.SECOND, 0);
-        auxiliar.set(Calendar.MILLISECOND, 0);
         return auxiliar.getTime();
     }
+
 }

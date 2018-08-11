@@ -32,6 +32,11 @@ public class EstadoDeAnimo implements Serializable{
     public void setColor(Color colorRepresentacion) {
         this.color = colorRepresentacion;
     }
+    
+    public void setCambio(EstadoDeAnimo estado){
+        this.tipo = estado.getTipo();
+        this.color = estado.getColor();
+    }
 
     @Override
     public String toString() {

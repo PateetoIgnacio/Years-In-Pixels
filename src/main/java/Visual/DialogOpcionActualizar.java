@@ -1,7 +1,6 @@
 package Visual;
 
 import Logica.EstadoDeAnimo;
-import java.awt.Frame;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import java.awt.Color;

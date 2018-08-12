@@ -16,11 +16,6 @@ import javax.swing.JPanel;
 
 public class PanelConfiguracion extends JPanel {
 
-    public JButton btnAjustarColores;
-    public JButton btnEditarFondo;
-    public JButton btnColores;
-    public JButton btnFondo;
-
     public String rutaNueva;
     public final String RUTAPREDETERMINADA = "src/main/resources/fondoPanel.jpg";
     public Image fondo;

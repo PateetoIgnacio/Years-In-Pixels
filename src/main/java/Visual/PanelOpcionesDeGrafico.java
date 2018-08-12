@@ -81,7 +81,7 @@ public class PanelOpcionesDeGrafico extends JPanel {
     private void setListener(JButton boton, int[][] datos, int mesAEvaluar) {
 
         boton.addActionListener((ActionEvent e) -> {
-            PanelRepresentacionGrafico rep = new PanelRepresentacionGrafico(this.estadisticas, boton.getText(), mesAEvaluar);
+            PanelRepresentacionGrafico representacion = new PanelRepresentacionGrafico(this.estadisticas, boton.getText(), mesAEvaluar);
         });
     }
 

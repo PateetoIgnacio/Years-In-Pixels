@@ -141,15 +141,15 @@ public class VentanaEleccionColoresPersonalizados extends JFrame implements Acti
     @Override
     public void actionPerformed(ActionEvent e) {
         if(this.estado1 == e.getSource()){
-            ColorChooser claseColorChooser = new ColorChooser(estado1);
+            FrameColorChooser claseColorChooser = new FrameColorChooser(estado1);
         }else if(this.estado2 == e.getSource()){
-            ColorChooser claseColorChooser = new ColorChooser(estado2);
+            FrameColorChooser claseColorChooser = new FrameColorChooser(estado2);
         }else if(this.estado3 == e.getSource()){
-            ColorChooser claseColorChooser = new ColorChooser(estado3);
+            FrameColorChooser claseColorChooser = new FrameColorChooser(estado3);
         }else if(this.estado4 == e.getSource()){
-            ColorChooser claseColorChooser = new ColorChooser(estado4);
+            FrameColorChooser claseColorChooser = new FrameColorChooser(estado4);
         }else if(this.estado5 == e.getSource()){
-            ColorChooser claseColorChooser = new ColorChooser(estado5);
+            FrameColorChooser claseColorChooser = new FrameColorChooser(estado5);
         }else if(this.btnCancelar == e.getSource()){
             this.dispose();
         }

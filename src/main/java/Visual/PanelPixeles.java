@@ -21,10 +21,10 @@ public class PanelPixeles extends JPanel {
     public PanelPixeles(Ventana ventana) {
         this.rutaNueva = null;
         this.pintarComienzo();
-        actualizarComponentes(ventana);
+        initComponents(ventana);
     }
 
-    private void actualizarComponentes(Ventana ventana) {
+    private void initComponents(Ventana ventana) {
 
         int diasDelMes = ventana.getAnhoEnPixeles().getDIAS_DEL_MES() + 1;
         int mesesDelAnho = ventana.getAnhoEnPixeles().getMESES_DEL_ANHO() + 1;

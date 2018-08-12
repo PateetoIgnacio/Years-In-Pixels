@@ -13,21 +13,20 @@ import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class ColorChooser extends JFrame implements ChangeListener, ActionListener {
+public class FrameColorChooser extends JFrame implements ChangeListener, ActionListener {
 
     private JColorChooser color;
-
     private JButton btnEstablecer;
     private JButton btnSeleccionado;
     private JButton btnCancelar;
 
-    public ColorChooser(JButton btnSeleccionado) {
+    public FrameColorChooser(JButton btnSeleccionado) {
         this.btnSeleccionado = btnSeleccionado;
         this.color = new JColorChooser();
-        this.iniComp();
+        this.iniComponents();
     }
 
-    private void iniComp() {
+    private void iniComponents() {
 //        jcc.getSelectionModel().addChangeListener(this.getListeners());
         
         this.setLayout(new BorderLayout());
